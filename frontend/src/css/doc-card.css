@@ -1,0 +1,56 @@
+  .doc-card {
+    /* width: 20%; */
+    border: 2px solid rgba(0, 0, 0, 0.205);
+    border-radius: 5px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem ;
+    transition:  all 0.3s ease-in-out;
+  }
+  .doc-card:hover {
+    border: 2px solid var(--green);
+    box-shadow: 0 4px 8px 0 rgba(0,  0, 0, 0.2), 0 6px 20px  0 rgba(0,  0, 0, 0.19);
+  }
+  .doc-card img{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  .doc-card .info-container{
+    display: flex;
+    flex-direction: column;
+    gap: .5rem ;
+  }
+  .doc-card .info-container h2{
+    font-size: 1.4rem;
+    text-align: left;
+  }
+  .doc-card .info-container .reviews-container{
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+  }
+  .doc-card .info-container .reviews-container svg{
+    font-size: 1.5rem;
+    color: yellow;
+  }
+  .doc-card .info-container .button-container{
+    display: flex;
+    align-self: flex-end;
+    padding: 0.5rem;
+  }
+  .doc-card .info-container .button-container button{
+    padding: 9px;
+    color: white;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    background-color: var(--green);
+    transition: all 0.3s ;
+  }
+  .doc-card .info-container .button-container button:hover{
+    background-color: var(--blue);
+    transform: scale(1.2, 1.2);
+    box-shadow: rgba(0, 0, 0, 0.2);
+    /* background-color: var(--blue); */
+  }

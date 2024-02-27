@@ -1,0 +1,218 @@
+.account{
+    width: 100%;
+    min-height: 100vh;
+    /* border: 2px solid red; */
+}
+.tabs{
+    width: 100%;
+}
+.modal-button{
+    /* border: 2px solid black; */
+    border-radius: 9px;
+    background-color: var(--blue);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    font-size: 1.1rem;
+    padding: .4rem 1.5rem;
+    transition: all 0.3s ease-in-out;
+}
+.modal-button svg{
+    color: var(--green);
+}
+.schedules-container{
+    padding: .6rem .50rem;
+    font-size: 1.1rem ;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-column-gap: 1.5rem;
+    grid-row-gap: 1.5rem;
+}
+.schedule-date{
+    border-bottom: 2px solid var(--green);
+}
+.schedule-timings{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-column-gap: 2rem;
+    grid-row-gap: 2.5rem;
+}
+.schedule-time{
+    background-color: red;
+    color: white;
+    width: fit-content !important;
+    height: fit-content !important;
+    padding: .4rem  0.8rem;
+    border-radius: 9px;
+}
+.profile-form{
+    padding: 2rem 10rem;
+    width: 95%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    border: 2px solid  var(--green);
+    /* box-shadow: 0px 0px 116px 76px rgba(0,0,0,0.23), 25px 0px 20px -20px rgba(0,0,0,0.45), 0px 0px 255px 63px rgba(0,0,0,0.45), -25px 0px 20px -20px rgba(0,0,0,0.45); */
+}
+.profile-form h3{
+  font-size: 1.5rem;
+}
+.profile-form .column{
+  min-height: 3.1rem;
+  margin: 1.5rem 0;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  border: 2px solid rgba(0, 0, 0, 0.123);
+  border-radius: 15px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0px 0px 255px -255px rgba(0,0,0,1), 25px 0px 20px -20px rgba(0,0,0,0.45), 0px 25px 20px -20px rgba(0,0,0,0.45), -25px 0px 20px -20px rgba(0,0,0,0.45);
+}
+.profile-form .column label{
+  display: flex;
+  font-size: 1.2rem;
+  align-items: center;
+  justify-content: center;
+}
+.profile-form .column input{
+    border:1px solid rgba(255, 255, 255, 0);
+    /* border: none; */
+    font-size: 1.2rem;
+    width: 100%;
+    background: none;
+    background-color: white !important;
+    padding: 0.5rem 1rem;
+}
+.profile-form .column input:focus{
+    border: none;
+    border:1px solid var(--green);
+    outline: none !important;
+    box-shadow: 0 0 10px #719ECE;
+    font-size: 1.2rem;
+    width: 100%;
+    background: none;
+    background-color: white !important;
+    padding: 0.5rem 1rem;
+}
+.profile-form .column .add-education, .profile-form .column .add-experience{
+    display: flex;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+}
+.profile-form .column .add-education svg, .profile-form .column .add-experience svg{
+    color: var(--green);
+}
+.profile-form .column .radio{
+  display: flex;
+  gap: 1rem;
+}
+.profile-form .column .radio .radio-column{
+  display: flex;
+  align-items: baseline;
+}
+/* .profile-form button{
+  background-image: linear-gradient(135deg, #A020F0, #0040FF);
+  color: white;
+  border: none;
+  margin: 1rem 0;
+  padding: 0.5rem 4rem;
+  font-size: 1.2rem;
+  box-shadow: 0px 0px 255px -255px rgba(0,0,0,1), 25px 0px 20px -20px rgba(0,0,0,0.45), 0px 25px 20px -20px rgba(0,0,0,0.45), -25px 0px 20px -20px rgba(0,0,0,0.45);
+  border-radius: 15px;
+  cursor: pointer;
+} */
+.profile-form  .save-button {
+    background-image: linear-gradient(135deg, #A020F0, #0040FF);
+    color: white;
+    border: none;
+    margin: 1rem 0;
+    padding: 0.5rem 4rem;
+    font-size: 1.2rem;
+    box-shadow: 0px 0px 255px -255px rgba(0, 0, 0, 1), 25px 0px 20px -20px rgba(0, 0, 0, 0.45), 0px 25px 20px -20px rgba(0, 0, 0, 0.45), -25px 0px 20px -20px rgba(0, 0, 0, 0.45);
+    border-radius: 15px;
+    cursor: pointer;
+}
+.profile-form .upload-image{
+    /* border: 2px solid red; */
+    display: flex;
+    justify-content: space-evenly;
+    /* width: 100%; */
+    /* height: 100%; */
+    object-fit: contain;
+    /* flex-direction: column; */
+}
+.profile-form .upload-image img{
+    object-fit: contain;
+    height: 100%;
+    width: 15%;
+    aspect-ratio: 1;
+    /* max-width: 15%; */
+    border: 2px solid var(--blue);
+    border-radius: 50%;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* flex-direction: column; */
+}
+.profile-form .upload-image .upload-item{
+    /* border: 2px solid rgb(0, 247, 255); */
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    justify-content: space-around;
+}
+.profile-form .upload-image .upload-item input{
+    /* border: 2px solid yellow; */
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-around;
+}
+.profile-form .upload-image .upload-item .submit-image-button{
+    border: none;
+    background-color: var(--blue);
+    border-radius: 5px;
+    color: white;
+    padding: 3px 5px;
+    width: auto;
+    font-size: 1.1rem;
+}
+.education-container, .experience-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0 17px;
+}
+.education-container .education-item, .experience-container .experience-item {
+    gap: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.education-container .education-item input, .experience-container .experience-item input {
+    width: 100%;
+    border: 2px solid rgba(0, 0, 0, 0.233);
+    border-radius: 5px;
+    padding: 5px 4px;
+}
+.education-container .education-item input:focus, .experience-container .experience-item input:focus{
+    outline: none !important;
+    border:1px solid var(--green);
+    box-shadow: 0 0 10px #719ECE;
+}
+.education-container .education-item .delete-education, .experience-container .experience-item .delete-experience{
+    font-size: 1.4rem;
+    color: red;
+}
+.log-out-button{
+    background-color: rgba(255, 0, 0, 0.859);
+    color: white;
+    font-size: 1.3rem;
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    z-index: 999;
+}

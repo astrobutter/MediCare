@@ -1,0 +1,30 @@
+.find-a-doctor{
+    /* height: 2000px; */
+  }
+  .find-a-doctor .autocomplete-tab{
+    width: 100%;
+    display: flex;
+    gap: 3rem;
+    /* fle */
+    justify-content: center;
+  }
+  .find-a-doctor .search-button{
+    background-color: var(--blue);
+    width: 3.5rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 25px;
+  }
+  .find-a-doctor .search-button svg{
+    font-size: 1.8rem;
+  }
+  .doc-card-container{
+    padding: 5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 2rem;
+    grid-row-gap: 2.5rem;
+  }
