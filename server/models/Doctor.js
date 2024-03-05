@@ -19,6 +19,7 @@ const DoctorSchema = new mongoose.Schema({
                     slots: { type: String },
                   }],
                 }],
+    price: { type: Number },
     about: { type: String, required: true },
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },

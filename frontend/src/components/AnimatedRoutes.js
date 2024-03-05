@@ -13,6 +13,7 @@ import { Profile } from '../pages/profile';
 import { useGetUserID } from '../hooks/useGetUserID';
 import { useGetIsDoc } from '../hooks/useGetIsDoc';
 import { UserAccount } from '../pages/userAccount';
+import { UserAppointment } from '../pages/userAppointment';
 
 export const AnimatedRoutes = () => {
     const userID = useGetUserID();
@@ -30,6 +31,7 @@ export const AnimatedRoutes = () => {
         <Route path="/account" element={<UserAccount />} />
         <Route path="/doctor/account" element={<Account />} /> 
         <Route path="/doc/:username" element={<Profile />} />
+        <Route path="/user/appointment/:_id" element={<UserAppointment />} />
     </Routes>
     <Footer />
     </AnimatePresence>

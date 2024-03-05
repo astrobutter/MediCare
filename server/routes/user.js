@@ -109,6 +109,18 @@ router.get('/appointments/user/:userID', verifyToken, async (req, res) => {
     res.status(201).json(appointments);
   } catch (err) { console.log(err) }
 })
+router.get('/appointment/user/:_id', verifyToken, async (req, res) => {
+  const appointment = await AppointmentModel.findById(req.params._id)
+  try {
+    res.status(201).json(appointment);
+  } catch (err) { console.log(err) }
+})
+router.get('/appointment/doc/:username', verifyToken, async (req, res) => {
+  const appointment = await AppointmentModel.find({ doc: req.params.username })
+  try {
+    res.status(201).json(appointment);
+  } catch (err) { console.log(err) }
+})
 
 router.get("/get-signature", (req, res) => {
   const timestamp = Math.round(new Date().getTime() / 1000)

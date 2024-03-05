@@ -3,9 +3,11 @@
     border: 2px solid rgba(0, 0, 0, 0.205);
     border-radius: 5px;
     padding: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem ;
+    display: grid;
+    grid-template-rows: 3fr 1fr;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* gap: 1.5rem ; */
     transition:  all 0.3s ease-in-out;
   }
   .doc-card:hover {
@@ -33,7 +35,7 @@
   }
   .doc-card .info-container .review-wrapper svg{
     font-size: 1.5rem;
-    color: yellow;
+    color: var(--blue);
   }
   .doc-card .info-container .button-container{
     display: flex;

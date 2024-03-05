@@ -31,6 +31,7 @@ export const Profile = () => {
     about: "",
     username: "",
     password: "",
+    price: 0,
   });
   const [ reviews, setReviews] = useState([]);
   const [ userReview, setUserReview] = useState({
@@ -129,8 +130,8 @@ export const Profile = () => {
             <div className='second'>Email: {profileDoc.email}</div>
           </div>
           <div className='booking-container'>
-            <p>Price:</p>
-            <button className='book-button'>Book Appointment</button>
+            <p>Price: {profileDoc.price? profileDoc.price : `Not Selected`}</p>
+            {/* <button className='book-button'>Book Appointment</button> */}
           </div>
         </div>
         <div className='profile-section'>
@@ -173,7 +174,7 @@ export const Profile = () => {
           <div className='section-content education-container'>{profileDoc.experiences?.map((experience, index) => <p key={index}>{experience.place}, {experience.from} to {experience.to}</p>)}</div>
         </div>
         <div className='profile-section'>
-          <p className='section-tag'>Reviews</p>
+          <p className='section-tag'>Reviews ({reviews.length})</p>
           <div className='section-content reviews-wrapper'>
             <div className='review-box'>
               <Rating value={userReview.rating} onChange={(event, newValue) => {setUserReview(review => ({ ...review, rating:newValue}))}} name="simple-controlled"  />
@@ -182,7 +183,7 @@ export const Profile = () => {
                 <button type='submit' onClick={handleSubmitReviews}> Post </button>
               </div>
             </div>
-            <div className='reviews-container'>{reviews.map((review, index) => (<ReviewCard review={review} key={index}/>))}</div>
+            <div className={reviews.length &&'reviews-container'}>{reviews.map((review, index) => (<ReviewCard review={review} key={index}/>))}</div>
           </div>
         </div>
       </div>

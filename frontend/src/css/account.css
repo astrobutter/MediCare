@@ -22,6 +22,9 @@
 .modal-button svg{
     color: var(--green);
 }
+.schedules-tab{
+    min-height: 100vh;
+}
 .schedules-container{
     padding: .6rem .50rem;
     font-size: 1.1rem ;
@@ -45,6 +48,43 @@
     height: fit-content !important;
     padding: .4rem  0.8rem;
     border-radius: 9px;
+}
+ .right h2{
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+ .right .table{
+    border-radius: 15px;
+    padding: 1rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.5rem;
+    background-color: rgba(15,125,255,0.09);
+}
+ .right .table .header{
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+ .right .table .row{
+    display: grid;
+    grid-template-columns: repeat( 3, 2fr) 1fr;
+    grid-row-gap: 1rem;
+    width: 100%;
+}
+ .right .table .row .username{
+    color: black;
+    text-decoration: underline;
+}
+ .right .table .row .nav{
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--green);
+    transition: all 0.3s ease-in-out;
+}
+ .right .table .row .nav:hover{
+    font-size: 2.1rem;
 }
 .profile-form{
     padding: 2rem 10rem;

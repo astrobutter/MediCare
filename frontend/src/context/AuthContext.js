@@ -35,6 +35,7 @@ export const AuthContextProvider = ({ children }) => {
     about: "",
     username: "",
     password: "",
+    price: 0,
   });
   const [ isDoctor, setIsDoctor ] = useState('false');
   const [totalPages, setTotalPages] = useState(0);
@@ -43,6 +44,8 @@ export const AuthContextProvider = ({ children }) => {
     time: ''
   })
   const [userAppointments, setUserAppointments] = useState([]);
+  const [userAppointment, setUserAppointment] = useState();
+  const [docAppointment, setDocAppointment] = useState([]);
   const doctorSpeciality = [
     'Anatomical Pathology',
     'Anesthesiology',
@@ -97,6 +100,8 @@ export const AuthContextProvider = ({ children }) => {
     'Urology',
     'Veterinary',
   ];
+const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
   const [ speciality, setSpeciality] = useState( doctorSpeciality[17]);
   const logout = () => {
     setCookies("access_token", "");
@@ -128,6 +133,20 @@ export const AuthContextProvider = ({ children }) => {
         console.log(response.data);
     } catch (err) { console.log(err) }
   }
+  const fetchCurrentAppointment = async (_id) => {
+    try {
+        const response = await axios.get(`http://localhost:3001/auth/appointment/user/${_id}`, { headers: { authorization: cookies.access_token } });
+        setUserAppointment(response.data);
+        console.log(response.data);
+    } catch (err) { console.log(err) }
+  }
+  const fetchCurrentDocAppointment = async (username) => {
+    try {
+        const response = await axios.get(`http://localhost:3001/auth/appointment/doc/${username}`, { headers: { authorization: cookies.access_token } });
+        setDocAppointment(response.data);
+        console.log(response.data);
+    } catch (err) { console.log(err) }
+  }
   return (
     <UserContext.Provider value={{
       userID,
@@ -144,11 +163,18 @@ export const AuthContextProvider = ({ children }) => {
       setAppointment,
       userAppointments,
       setUserAppointments,
+      userAppointment,
+      setUserAppointment,
+      docAppointment,
+      setDocAppointment,
       doctorSpeciality,
       fetchCurrentUser,
       fetchCurrentDoc,
       fetchAppointments,
+      fetchCurrentAppointment,
+      fetchCurrentDocAppointment,
       logout,
+      month,
       totalPages,
       setTotalPages,
     }}>

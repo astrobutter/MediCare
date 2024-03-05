@@ -40,61 +40,6 @@ const MenuProps = {
   },
 };
 
-const doctorSpeciality = [
-  'Anatomical Pathology',
-  'Anesthesiology',
-  'Ayurveda',
-  'Cardiology',
-  'Cardiovascular & Thoracic Surgery',
-  'Clinical Immunology/Allergy',
-  'Critical Care Medicine',
-  'Dentistry',
-  'Dermatology',
-  'Diabetology',
-  'Diagnostic Radiology',
-  'Diet & Nutrition',
-  'Ear, Nose, Throat',
-  'Emergency Medicine',
-  'Endocrinology and Metabolism',
-  'Family Medicine',
-  'Gastroenterology',
-  'General Physician',
-  'General Internal Medicine',
-  'General Surgery',
-  'General/Clinical Pathology',
-  'Geriatric Medicine',
-  'Hematology',
-  'Homeopathy',
-  'Medical Biochemistry',
-  'Medical Genetics',
-  'Medical Microbiology and Infectious Diseases',
-  'Medical Oncology',
-  'Nephrology',
-  'Neurology',
-  'Neurosurgery',
-  'Nuclear Medicine',
-  'Obstetrics/Gynecology',
-  'Occupational Medicine',
-  'Ophthalmology',
-  'Orthopedic',
-  'Orthopedic Surgery',
-  'Otolaryngology',
-  'Pediatrics',
-  'Physical Medicine and Rehabilitation (PM & R)',
-  'Physiotherapy',
-  'Plastic Surgery',
-  'Psychiatry',
-  'Psychology',
-  'Public Health and Preventive Medicine (PhPm)',
-  'Pulmonology',
-  'Radiation Oncology',
-  'Respirology',
-  'Rheumatology',
-  'Sexology',
-  'Urology',
-  'Veterinary',
-];
-
 function getStyles(speciality, currSpeciality, theme) {
   return {
     fontWeight:
@@ -105,7 +50,7 @@ function getStyles(speciality, currSpeciality, theme) {
 }
 
 export const Account = () => {
-  const { doc, setDoc, logout } = UserAuth();
+  const { doc, setDoc, logout, doctorSpeciality, month, docAppointment, fetchCurrentDocAppointment } = UserAuth();
   const userID = useGetUserID();
   const theme = useTheme();
   const [cookies, _] = useCookies(["access_token"]);
@@ -225,11 +170,16 @@ export const Account = () => {
   useEffect(() => {
     fetchCurrentdoc();
     fetchComments();
+    // fetchCurrentDocAppointment(doc.username);
   }, []);
   useEffect(() => {
-    // console.log('UE doc -', doc);
+    console.log('UE doc -', doc);
+    { doc.username && fetchCurrentDocAppointment(doc.username)}
     updateSchedules();
   }, [doc]);
+  useEffect(() => {
+    console.log('UE docAppointment -', docAppointment);
+  }, [docAppointment]);
 
   useEffect(() => {
     setDoc({ ...doc, specializations: currSpeciality })
@@ -254,7 +204,8 @@ export const Account = () => {
                 <div className='second'>Email: {doc.email}</div>
               </div>
 
-              <div className='booking-container hidden'>
+              <div className='booking-container '>
+                <div>Price- {doc.price? doc.price : `Not Selected`}</div>
                 <button className='log-out-button' onClick={logout}>Log-out</button>
               </div>
             </div>
@@ -296,9 +247,9 @@ export const Account = () => {
             </div>
 
             <div className='profile-section'>
-              <p className='section-tag'>Reviews</p>
+              <p className='section-tag'>Reviews ({reviews?.length})</p>
               <div className='section-content reviews-wrapper'>
-                <div className='reviews-container'>
+                <div className={reviews?.length &&'reviews-container'}>
                   {reviews?.map((review, index) => (
                     <ReviewCard review={review} key={index} />
                   ))}
@@ -308,7 +259,7 @@ export const Account = () => {
           </div>
         </TabPanel>
         <TabPanel value={1}>
-          <div className=''>
+          <div className='schedules-tab'>
             <button className='modal-button' onClick={event => handleModal(event)} ><FaPlus /> Schedules
             </button>
             <Modal open={openModal} onClose={() => setOpenModal(false)} />
@@ -326,6 +277,24 @@ export const Account = () => {
                 </div>
               ))}
             </div>
+            <div className='right'>
+            <h2>My Appointments</h2>
+                <div className={docAppointment&&'table' }>
+                    <div className='row header'>
+                        <div>Pateint Id</div>
+                        <div>Appointment Date</div>
+                        <div>Appointment Time</div>
+                    </div>
+                    { docAppointment?.map((appointment, index) => (
+                        <div key={index} className='row'>
+                            <button className='username'>{appointment.user}</button>
+                            <div>{month[dayjs(appointment.date).format('MM')-'0']} {dayjs(appointment.date).format('DD')-'0' -1}, {dayjs(appointment.date).format('YYYY')}</div>
+                            <div>{appointment.time>11? (appointment.time-12 +' p.m.'): (appointment.time +' a.m.')}</div>
+                            {/* <button type='button' className='nav'><MdKeyboardArrowRight /></button> */}
+                        </div>
+                    ))}
+                </div>
+            </div>
           </div>
         </TabPanel>
         <TabPanel value={2}>
@@ -341,6 +310,11 @@ export const Account = () => {
                 <input htmlFor="imageUrl" id="file-field" type="file" />
                 <button name="imageUrl" type="submit" className="submit-image-button" onClick={submitImage}>Upload</button>
               </div>
+            </div>
+
+            <div className='column'>
+              <label htmlFor="about">Price:</label>
+              <input type="number" value={doc.price} placeholder='750' required onChange={(event) => setDoc({ ...doc, price: event.target.value })} />
             </div>
 
             <div className='column'>

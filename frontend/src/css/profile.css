@@ -124,10 +124,13 @@
     gap: 1.2rem;
 }
 .review-box{
+    border-radius: 15px;
+    padding: 0.5rem 0.8rem;
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    background-color: rgba(25, 117, 230, 0.25);
 }
 .review-box .review-text{
     display: grid;
@@ -142,10 +145,7 @@
 }
 .review-box .review-text textarea:focus{
     border: 2px solid rgba(0, 0, 0, 0.247);
-    /* background-color: aqua; */
     border: 2px solid var(--green);
-    /* border-radius: 4px; */
-    /* border-bottom-right-radius: 15px; */
 }
 .review-box .review-text button{
     background-color: var(--blue);

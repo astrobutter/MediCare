@@ -39,6 +39,7 @@ router.put("/", verifyToken, async (req, res) => {
         password: req.body.password,
         specializations: req.body.specializations,
         schedules: req.body.schedules,
+        price: req.body.price,
       });
       res.status(201).json({result});
     } catch (err) { res.status(500).json(err) }

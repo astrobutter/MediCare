@@ -27,13 +27,10 @@ const Modal = ({ open, onClose }) => {
   })
   const [ time, setTime] = useState(now);
   const [ slotCount, setSlotCount] = useState();
-  const currentdate = new Date();
-  // const current = currentdate.getFullYear();
   const maxdate = new Date(Date.now() + 12096e5);
-  // const maxdate = new Date(currentdate.setMonth(currentdate.getMonth() + 1));
-  // useEffect(()=>{
-  //   console.log('UE', schedules);
-  // }, [schedules]);
+  useEffect(()=>{
+    console.log('UE schedules-', schedules);
+  }, [schedules]);
   // useEffect(()=>{
   //   console.log('UE time', time);
   // }, [time]);
@@ -42,7 +39,6 @@ const Modal = ({ open, onClose }) => {
 
   const dateChange = (event) => {
     doc.schedules?.map((schedule)=>{
-      // console.log('dayjs -', dayjs(schedule.date).format('DD')-'0');
       if((dayjs(schedule.date).format('DD')-'0') === event.getDate()){
         toast.error(`Similar Schedule exits for ${dayjs(schedule.date).format('DD-MM')}.`, { position: "bottom-left", autoClose: 1500, hideProgressBar: true, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "dark"});
       }
@@ -51,23 +47,37 @@ const Modal = ({ open, onClose }) => {
   )
   };
   const timeChange = (event) => setTime(event);
-  // console.log('TC', event._d.getHours());
   const addTimings = (event) => {
-    const oldTiming = schedules.timings;
-    oldTiming.push({
-      time: time._d.getHours(),
-      slots: slotCount,
-    })
-    setSchedules({...schedules, ['timings']:oldTiming});
+    if( schedules.timings ){
+      const oldTiming = schedules.timings;
+      oldTiming.push({
+        time: time._d.getHours(),
+        slots: slotCount,
+      })
+      setSchedules({...schedules, ['timings']:oldTiming});
+    }
+    else{
+      const timings = [{
+        time: time._d.getHours(),
+        slots: slotCount,
+      }]
+      setSchedules({...schedules, timings});
+    }
   }
   const handleSchedule = async (event) => {
     event.preventDefault();
     try {
-      const oldSchedules = doc.schedules;
-      oldSchedules.push(schedules);
-      setDoc({ ...doc, schedules : oldSchedules})
+      if( doc.schedules ){
+        let oldSchedules = doc.schedules;
+        oldSchedules.push(schedules);
+        setDoc({ ...doc, schedules : oldSchedules})
+      }
+      else{
+        setDoc({ ...doc, schedules })
+      }
       const result = await axios.put("http://localhost:3001/doc", { ...doc }, { headers: { authorization: cookies.access_token }});
       console.log('axios -',result);
+      setSchedules({ ...schedules, timings:null,})
       toast.success('Changes Saved.', { position: "bottom-left", autoClose: 1500, hideProgressBar: true, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "dark",
       });
       onClose();
@@ -81,11 +91,10 @@ const Modal = ({ open, onClose }) => {
         <p className='closeBtn' onClick={onClose}><IoMdClose /></p>
         <div>
         <Calendar className='calendar' onChange={(event)=>{dateChange(event)}} value={schedules.date} minDate={new Date()} maxDate={maxdate}/>
-        {/* <Calendar className='calendar' onChange={(event)=>{dateChange(event)}} value={schedules.date} minDate={new Date()} maxDate={Date.now() + 12096e5} /> */}
         </div>
         <div className='left-modal'>
           <div className='time-container'>
-          { schedules.timings.map( (schedule,index) => 
+          { schedules.timings?.map( (schedule,index) => 
             <div key={index} className='time-wrap'>
               {schedule.time>11? (schedule.time-12 +'p.m.'): (schedule.time +'a.m.')} - ({schedule.slots})
             </div> )}
