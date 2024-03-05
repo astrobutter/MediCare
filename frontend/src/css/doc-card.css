@@ -25,13 +25,13 @@
     font-size: 1.4rem;
     text-align: left;
   }
-  .doc-card .info-container .reviews-container{
+  .doc-card .info-container .review-wrapper{
     font-size: 1.1rem;
     display: flex;
     align-items: center;
     gap: .4rem;
   }
-  .doc-card .info-container .reviews-container svg{
+  .doc-card .info-container .review-wrapper svg{
     font-size: 1.5rem;
     color: yellow;
   }

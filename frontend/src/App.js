@@ -1,11 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
-import { Navbar } from "./components/Navbar";
-import { Footer } from './components/Footer';
 import { AnimatedRoutes } from './components/AnimatedRoutes';
-import { Login } from './pages/login';
-import { Sign_up } from './pages/sign-up';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

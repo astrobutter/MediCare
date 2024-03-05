@@ -12,14 +12,4 @@ router.get("/profile/:id", async (req, res) => {
       console.log(err)
       res.status(500).json(err);
     }
-  });
-
-  router.get('/user/:userID', async (req, res) => {
-    // console.log(req.params.userID);
-    const User = await UserModel.findById(req.params.userID);
-    try {
-      // console.log(User);
-      res.status(201).json(User);
-  
-    } catch (err) { console.log(err) }
-  })
+});

@@ -1,20 +1,15 @@
 import mongoose from "mongoose";
 
 const reviewSchema = mongoose.Schema({
-  commentUser: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  userName: {
+  user: {
     type: String,
     required: true,
   },
-  docUserName: {
+  doc: {
     type: String,
     required: true,
   },
-  ratingValue: {
+  rating: {
     type: Number,
     required: true,
   },

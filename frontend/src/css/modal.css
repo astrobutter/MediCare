@@ -7,6 +7,7 @@
   /* background-color: black !important; */
 }
 .modalContainer {
+  min-width: 45%;
   max-width: 55%;
   width: 100%;
   padding: 0.5rem 0.4rem;
@@ -103,4 +104,8 @@
   border-radius: 9px;
   padding: .4rem  0.5rem;
   width: auto;
+}
+
+.modal-para{
+  color: red !important;
 }

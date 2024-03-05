@@ -1,5 +1,4 @@
 import React from 'react';
-import img from '../assets/1.jpg'
 import { FaStar } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
 import '../css/doc-card.css'
@@ -12,7 +11,7 @@ export const DocCard = ({doc}) => {
         <img src={doc.imageUrl} />
         <div className='info-container'>
             <h2>Dr. {doc.name}</h2>
-            <div className='reviews-container'>
+            <div className='review-wrapper'>
                 <FaStar />
                 <p>4.5</p>
                 <p>(16)</p>

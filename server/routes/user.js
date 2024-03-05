@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import {v2 as cloudinary} from 'cloudinary';
 import { UserModel } from "../models/User.js";
 import { DoctorModel } from "../models/Doctor.js";
+import { AppointmentModel } from "../models/Appointment.js";
 
 const router = express.Router();
 
@@ -14,10 +15,21 @@ const cloudinaryConfig = cloudinary.config({
   api_secret: process.env.CLOUDINARYSECRET,
   secure: true
 })
-
+export const verifyToken = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    jwt.verify(authHeader, "secret", (err) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+      next();
+    });
+  } else {
+    res.sendStatus(401);
+  }
+};
 router.post("/register", async (req, res) => {
-  // console.log(req.body.password);
-  const { username, password, name, email, gender, dob } = req.body;
+  const { username, password, imageUrl, name, email, gender, dob } = req.body;
   const user = await UserModel.findOne({ username });
   if (user) {
     return res.status(400).json({ message: "Username already exists" });
@@ -32,7 +44,7 @@ router.post("/register", async (req, res) => {
   //       if(err) throw (err);
   //   })})
   // console.log(hashedPassword);
-  const newUser = new UserModel({  name, email, username, password: hashedPassword, gender, dob });
+  const newUser = new UserModel({  name, email, imageUrl, username, password: hashedPassword, gender, dob });
   await newUser.save();
   res.json({ message: "User registered successfully" });
 });
@@ -51,23 +63,21 @@ router.post("/doc/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, checked } = req.body;
   const user = await UserModel.findOne({ username });
   if (!user) {
     return res.status(299).json({ message: "Username or password is incorrect" });
   }
-  // console.log(password);
-  // console.log(user);
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
     return res.status(298).json({ message: "Username or password is incorrect" });
   }
-  const token = jwt.sign({ id: user._id }, "secret");
-  res.json({ token, userID: user._id });
+  const token = jwt.sign({ id: user._id, isDoctor: checked.toString() },  "secret");
+  res.json({ token, userID: user._id, isDoctor: checked.toString() });
 });
 
 router.post("/doc/login", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, checked } = req.body;
   const user = await DoctorModel.findOne({ username });
   if (!user) {
     return res.status(299).json({ message: "Username or password is incorrect" });
@@ -77,9 +87,28 @@ router.post("/doc/login", async (req, res) => {
   if (!isPasswordValid) {
     return res.status(298).json({ message: "Username or password is incorrect" });
   }
-  const token = jwt.sign({ id: user._id }, "secret");
-  res.json({ token, userID: user._id });
+  // const token = jwt.sign({ id: user._id, isDoctor: checked }, "secret");
+  // res.json({ token, userID: user._id, isDoctor: checked });
+  const token = jwt.sign({ id: user._id, isDoctor: checked.toString() },  "secret");
+  res.json({ token, userID: user._id, isDoctor: checked.toString() });
 });
+
+router.get('/user/:userID', verifyToken, async (req, res) => {
+  // console.log(req.params.userID);
+  const User = await UserModel.findById(req.params.userID);
+  try {
+    // console.log(User);
+    res.status(201).json(User);
+
+  } catch (err) { console.log(err) }
+})
+
+router.get('/appointments/user/:userID', verifyToken, async (req, res) => {
+  const appointments = await AppointmentModel.find({ user: req.params.userID })
+  try {
+    res.status(201).json(appointments);
+  } catch (err) { console.log(err) }
+})
 
 router.get("/get-signature", (req, res) => {
   const timestamp = Math.round(new Date().getTime() / 1000)
@@ -104,18 +133,5 @@ router.post("/do-something-with-photo", async (req, res) => {
   }
 })
 
-export const verifyToken = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (authHeader) {
-    jwt.verify(authHeader, "secret", (err) => {
-      if (err) {
-        return res.sendStatus(403);
-      }
-      next();
-    });
-  } else {
-    res.sendStatus(401);
-  }
-};
 
 export { router as userRouter };

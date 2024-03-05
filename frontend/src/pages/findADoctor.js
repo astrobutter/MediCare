@@ -9,66 +9,9 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { CiSearch } from "react-icons/ci";
 
-
-const doctorSpeciality = [
-  'Anatomical Pathology',
-  'Anesthesiology',
-  'Ayurveda',
-  'Cardiology',
-  'Cardiovascular & Thoracic Surgery',
-  'Clinical Immunology/Allergy',
-  'Critical Care Medicine',
-  'Dentistry',
-  'Dermatology',
-  'Diabetology',
-  'Diagnostic Radiology',
-  'Diet & Nutrition',
-  'Ear, Nose, Throat',
-  'Emergency Medicine',
-  'Endocrinology and Metabolism',
-  'Family Medicine',
-  'Gastroenterology',
-  'General Physician',
-  'General Internal Medicine',
-  'General Surgery',
-  'General/Clinical Pathology',
-  'Geriatric Medicine',
-  'Hematology',
-  'Homeopathy',
-  'Medical Biochemistry',
-  'Medical Genetics',
-  'Medical Microbiology and Infectious Diseases',
-  'Medical Oncology',
-  'Nephrology',
-  'Neurology',
-  'Neurosurgery',
-  'Nuclear Medicine',
-  'Obstetrics/Gynecology',
-  'Occupational Medicine',
-  'Ophthalmology',
-  'Orthopedic',
-  'Orthopedic Surgery',
-  'Otolaryngology',
-  'Pediatrics',
-  'Physical Medicine and Rehabilitation (PM & R)',
-  'Physiotherapy',
-  'Plastic Surgery',
-  'Psychiatry',
-  'Psychology',
-  'Public Health and Preventive Medicine (PhPm)',
-  'Pulmonology',
-  'Radiation Oncology',
-  'Respirology',
-  'Rheumatology',
-  'Sexology',
-  'Urology',
-  'Veterinary',
-];
-
 export const Find_a_doctor = () => {
-  const { totalPages, setTotalPages } = UserAuth();
+  const { totalPages, setTotalPages, doctorSpeciality, speciality, setSpeciality } = UserAuth();
 
-  const [ speciality, setSpeciality] = useState( doctorSpeciality[17]);
   const [ name, setName] = useState( ) ;
   const [currentPage, setCurrentPage] = useState(1);
   const [ doctors, setDoctors ] = useState();
@@ -88,12 +31,9 @@ export const Find_a_doctor = () => {
       console.log('FD -', doctors);
     } catch (err) { console.log(err) }
   };
-  
-  const handleSubmit = () => {
-  }
 
   useEffect(() => {
-    console.log(doctors)
+    // console.log(doctors)
   }, [doctors])
 {/*
   useEffect(() => {

@@ -4,13 +4,19 @@ import { BrowserRouter as Router, Route, Routes, useLocation } from "react-route
 import Index from '../pages';
 import { Navbar } from "./Navbar";
 import { Footer } from './Footer';
-import { Find_a_doctor } from '../pages/find-a-doctor';
+import { Find_a_doctor } from '../pages/findADoctor';
 import { Login } from '../pages/login';
-import { Sign_up } from '../pages/sign-up';
-import { Doc_sign_up } from '../pages/doc-sign-up';
-import { Account } from '../pages/account';
+import { Sign_up } from '../pages/signUp';
+import { Doc_sign_up } from '../pages/docSignUp';
+import { Account } from '../pages/docAccount';
 import { Profile } from '../pages/profile';
+import { useGetUserID } from '../hooks/useGetUserID';
+import { useGetIsDoc } from '../hooks/useGetIsDoc';
+import { UserAccount } from '../pages/userAccount';
+
 export const AnimatedRoutes = () => {
+    const userID = useGetUserID();
+    const isDoc = useGetIsDoc();
     const location = useLocation();
     return (
     <AnimatePresence>
@@ -21,7 +27,8 @@ export const AnimatedRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<Sign_up />} />
         <Route path="/doctor/sign-up" element={<Doc_sign_up />} />
-        <Route path="/doctor/account" element={<Account />} />
+        <Route path="/account" element={<UserAccount />} />
+        <Route path="/doctor/account" element={<Account />} /> 
         <Route path="/doc/:username" element={<Profile />} />
     </Routes>
     <Footer />

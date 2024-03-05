@@ -90,7 +90,10 @@
   align-items: center;
 }
 .account-nav img{
+  /* height: 100%; */
   width: 3.5rem;
+  height: 3.5rem;
   border-radius: 50%;
   border: 2px solid var(--blue);
+  object-fit: cover;
 }
