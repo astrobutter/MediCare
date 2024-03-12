@@ -1,10 +1,9 @@
 import React, { useState, useEffect} from 'react'
 import { UserAuth } from '../context/AuthContext'
-import { motion } from "framer-motion";
+import { motion, dayjs } from '../components/NpmPackages';
+import { MdKeyboardArrowRight } from "../components/ReactIcons";
 import '../css/userAccount.css'
 import 'react-toastify/dist/ReactToastify.css';
-import dayjs from 'dayjs';
-import { MdKeyboardArrowRight } from "react-icons/md";
 
 export const UserAccount = () => {
     const { userID, user, logout, month, fetchCurrentUser, fetchAppointments, userAppointments, navigate } = UserAuth();

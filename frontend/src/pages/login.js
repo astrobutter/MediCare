@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { motion } from "framer-motion";
-import { useCookies } from "react-cookie";
 import { Link, useNavigate } from "react-router-dom";
-import { MdEmail } from "react-icons/md";
-import { RiLockPasswordFill } from "react-icons/ri";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { UserAuth } from "../context/AuthContext";
+import { useCookies } from "react-cookie";
+import { axios, motion, toast } from "../components/NpmPackages";
+import { MdEmail, RiLockPasswordFill } from "../components/ReactIcons";
+import 'react-toastify/dist/ReactToastify.css';
 import '../css/login.css'
 
 export const Login = () => {

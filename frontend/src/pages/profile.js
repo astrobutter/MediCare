@@ -1,15 +1,10 @@
 import React, { useState, useEffect} from 'react'
-import { UserAuth } from '../context/AuthContext'
-import axios from 'axios';
-import { useCookies } from "react-cookie";
 import { useParams } from 'react-router-dom'
-import { motion } from "framer-motion";
-import { toast } from 'react-toastify';
+import { UserAuth } from '../context/AuthContext'
 import { useGetUserID } from '../hooks/useGetUserID';
-import Rating from '@mui/material/Rating';
-import { ReviewCard } from '../components/ReviewCard';
-import AppointmentModal from '../components/AppointmentModal'
-import dayjs  from 'dayjs';
+import { toast, axios, motion, dayjs } from '../components/NpmPackages';
+import { Rating} from '../components/MaterialUI';
+import { ReviewCard, AppointmentModal } from '../components/Index';
 import 'react-toastify/dist/ReactToastify.css';
 import '../css/profile.css'
 import '../css/appointmentModal.css'
@@ -18,28 +13,9 @@ export const Profile = () => {
   const { isDoctor, user, doc } = UserAuth();
   const params = useParams()
   const userID = useGetUserID();
-  const [ profileDoc, setProfileDoc] = useState({
-    name: "",
-    dob:"",
-    gender: "",
-    email: "",
-    imageUrl: "",
-    educations: [],
-    experiences: [],
-    specializations: [],
-    schedules: [],
-    about: "",
-    username: "",
-    password: "",
-    price: 0,
-  });
+  const [ profileDoc, setProfileDoc] = useState({ name: "", dob:"", gender: "", email: "", imageUrl: "", educations: [], experiences: [], specializations: [], schedules: [], about: "", username: "", password: "", price: 0,});
   const [ reviews, setReviews] = useState([]);
-  const [ userReview, setUserReview] = useState({
-    user : '',
-    text : '',
-    doc : params.username,
-    rating: 5,
-  });
+  const [ userReview, setUserReview] = useState({ user : '', text : '', doc : params.username, rating: 5, });
   const [openModal, setOpenModal] = useState(false);
   const [appointment, setAppointment] = useState();
   let sum=0;
@@ -54,9 +30,7 @@ export const Profile = () => {
   const getUserName = () => {
     if( isDoctor === 'true' ) {
       setUserReview(review => ({...review, user : setProfileDoc.username}))
-    }else{ 
-      setUserReview(review => ({...review, user : user.username}))
-    }
+    }else{ setUserReview(review => ({...review, user : user.username}))}
   }
   const fetchDocProfile = async (username) => {
     try {
@@ -70,23 +44,9 @@ export const Profile = () => {
       console.log('result -', result);
     } catch (err) { console.log(err) }
   }
-{/*
-  useEffect(() => {
-    // console.log('UE UR -', userReview)
-  }, [userReview])
-  useEffect(() => {
-    console.log('reviews -', reviews);
-    // console.log('UE UR -', userReview)
-  }, [reviews])
-*/}
   const handleAppointment = (event, date, time, index, index2) => {
     event.stopPropagation();
-    setAppointment({
-      user:  userID,
-      doc: params.username,
-      date: date,
-      time: time,
-    })
+    setAppointment({ user:  userID, doc: params.username, date: date, time: time, })
     setOpenModal(true);
   }
   useEffect(() => {
@@ -113,9 +73,7 @@ export const Profile = () => {
         fetchComments();
         setUserReview(review => ({...review, text : ''}))
       }
-      else{
-        toast.error(`You're not logged in.`, { position: "bottom-left", autoClose: 1500, hideProgressBar: true, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "dark"});
-      }
+      else{ toast.error(`You're not logged in.`, { position: "bottom-left", autoClose: 1500, hideProgressBar: true, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "dark"}); }
     } catch (err) { console.log(err) }
   }
   return (
@@ -131,7 +89,6 @@ export const Profile = () => {
           </div>
           <div className='booking-container'>
             <p>Price: {profileDoc.price? profileDoc.price : `Not Selected`}</p>
-            {/* <button className='book-button'>Book Appointment</button> */}
           </div>
         </div>
         <div className='profile-section'>

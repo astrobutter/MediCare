@@ -1,52 +1,21 @@
 import React, { useState, useEffect} from 'react'
 import { UserAuth } from '../context/AuthContext'
-import { motion } from "framer-motion";
-import Tabs from '@mui/joy/Tabs';
-import TabList from '@mui/joy/TabList';
-import Tab from '@mui/joy/Tab';
-import TabPanel from '@mui/joy/TabPanel';
-import axios from 'axios';
 import { useCookies } from "react-cookie";
-
-import Box from "@mui/material/Box";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import Chip from "@mui/material/Chip";
-import { useTheme } from "@mui/material/styles";
-
-import { toast } from 'react-toastify';
+import { useGetUserID } from '../hooks/useGetUserID';
+import { Box, OutlinedInput, InputLabel, MenuItem, FormControl, Select, Chip, useTheme, Tabs, TabList, Tab, TabPanel} from '../components/MaterialUI'
+import { motion, axios, toast, dayjs} from '../components/NpmPackages'
+import { FiMinusCircle, FaPlus, FaEye, FaEyeSlash } from "../components/ReactIcons";
+import { Modal, ReviewCard } from '../components/Index';
+import 'react-toastify/dist/ReactToastify.css';
 import '../css/account.css'
 import '../css/modal.css'
-import 'react-toastify/dist/ReactToastify.css';
-import { FiMinusCircle } from "react-icons/fi";
-import { FaPlus, FaEye, FaEyeSlash } from "react-icons/fa";
-import { useGetUserID } from '../hooks/useGetUserID';
-import dayjs  from 'dayjs';
-import Modal from '../components/Modal';
-import { ReviewCard } from '../components/ReviewCard';
-import Rating from '@mui/material/Rating';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+const MenuProps = {PaperProps: {style: {maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,width: 250,},}};
 
 function getStyles(speciality, currSpeciality, theme) {
-  return {
-    fontWeight:
-      currSpeciality?.indexOf(speciality) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
+  return { fontWeight: currSpeciality?.indexOf(speciality) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium, };
 }
 
 export const Account = () => {
@@ -118,7 +87,6 @@ export const Account = () => {
       data.append("signature", signatureResponse.data.signature);
       data.append("timestamp", signatureResponse.data.timestamp);
 
-      // const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/auto/upload`, data, { headers: { "Content-Type": "multipart/form-data" }, onUploadProgress: function (e) {console.log(e.loaded / e.total)}})
       const cloudinaryResponse = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/auto/upload`, data, { headers: { "Content-Type": "multipart/form-data" }})
       toast.success('Photo Saved.', { position: "bottom-left", autoClose: 1500, hideProgressBar: true, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "dark"})
       setDoc(doc => ({ ...doc, imageUrl: cloudinaryResponse.data.url }));
@@ -134,7 +102,7 @@ export const Account = () => {
         const schedules = doc.schedules.filter((schedule, idx) => idx !== index);
         setDoc({ ...doc, schedules});
       }})
-}
+  }
   const fetchCurrentdoc = async () => {
     try {
       const response = await axios.get(`http://localhost:3001/doc/account/${userID}`, { headers: { authorization: cookies.access_token } });
@@ -170,7 +138,6 @@ export const Account = () => {
   useEffect(() => {
     fetchCurrentdoc();
     fetchComments();
-    // fetchCurrentDocAppointment(doc.username);
   }, []);
   useEffect(() => {
     console.log('UE doc -', doc);

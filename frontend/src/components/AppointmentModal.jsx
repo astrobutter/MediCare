@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { UserAuth } from "../context/AuthContext";
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { IoMdClose } from "react-icons/io";
-import dayjs  from 'dayjs';
+import { axios, dayjs, toast} from './NpmPackages';
+import { IoMdClose } from "./ReactIcons";
 let today= new Date();
 
 const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];

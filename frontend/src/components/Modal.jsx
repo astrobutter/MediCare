@@ -1,17 +1,8 @@
-import React, { useEffect } from 'react';
-import { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import { UserAuth } from "../context/AuthContext";
-import axios from 'axios';
-import { toast } from 'react-toastify';
 import { useCookies } from "react-cookie";
-
-import Calendar from 'react-calendar';
-import TimePicker from 'rc-time-picker';
-import moment from 'moment';
-import { FaPlusCircle } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
-// import '../css/calendar.css';
-import dayjs  from 'dayjs';
+import { axios, Calendar, TimePicker, moment, dayjs, toast } from './NpmPackages'
+import { FaPlusCircle, IoMdClose } from './ReactIcons';
 import 'react-calendar/dist/Calendar.css';
 import 'rc-time-picker/assets/index.css';
 const format = 'h a';

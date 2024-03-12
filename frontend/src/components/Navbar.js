@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import webLogo from "../assets/logo.png"
-import { useNavigate } from "react-router-dom";
 import '../css/navbar.css';
-import { GiHamburgerMenu } from "react-icons/gi";
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
+import { useGetIsDoc } from '../hooks/useGetIsDoc';
 import { useGetUserID } from "../hooks/useGetUserID";
 import { UserAuth } from "../context/AuthContext";
 import { useCookies } from "react-cookie";
-import { useGetIsDoc } from '../hooks/useGetIsDoc';
+import { GiHamburgerMenu } from "./ReactIcons";
 
 export const Navbar = () => {
   const { isDoctor, setIsDoctor, logout, user, setUser, doc, setDoc, fetchCurrentDoc, fetchCurrentUser } = UserAuth();
@@ -40,7 +39,6 @@ export const Navbar = () => {
         <div className={ showMediaIcons ? "menu-link mobile-menu-link" : "menu-link" }>
           <ul>
             <li><NavLink to="/">Home</NavLink></li>
-            <li><NavLink to="/service">Services</NavLink></li>
             <li><NavLink to="/find-a-doctor">Find a Doctor</NavLink></li>
             <li><NavLink to="/community">Community Forum</NavLink></li>
           </ul>
