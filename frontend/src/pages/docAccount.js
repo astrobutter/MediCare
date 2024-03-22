@@ -32,14 +32,8 @@ export const Account = () => {
   const cloud_name = "deideje7t"
   let today= new Date();
 
-  const handleAddEducation = () => {
-    const educations = [...doc.educations, ""];
-    setDoc({ ...doc, educations });
-  };
-  const handleAddExperience = () => {
-    const experiences = [...doc.experiences, ""];
-    setDoc({ ...doc, experiences });
-  };
+  const handleAddEducation = () => { const educations = [...doc.educations, ""]; setDoc({ ...doc, educations }); };
+  const handleAddExperience = () => { const experiences = [...doc.experiences, ""]; setDoc({ ...doc, experiences }); };
   const handleEducationCollegeChange = (event, index) => {
     const { value } = event.target;
     const educations = [...doc.educations];
@@ -95,19 +89,15 @@ export const Account = () => {
   const updateSchedules = () => {
     doc.schedules?.map((schedule, index)=>{
       if((dayjs(schedule.date).format('DD')-'0'> today.getDate()) && dayjs(schedule.date).format('MM')-'0'< today.getMonth()+1) {
-        const schedules = doc.schedules.filter((schedule, idx) => idx !== index);
-        setDoc({ ...doc, schedules});
-      }
-      else if((dayjs(schedule.date).format('DD')-'0'<today.getDate()) && dayjs(schedule.date).format('MM')-'0'=== today.getMonth()+1) {
-        const schedules = doc.schedules.filter((schedule, idx) => idx !== index);
-        setDoc({ ...doc, schedules});
+        const schedules = doc.schedules.filter((schedule, idx) => idx !== index); setDoc({ ...doc, schedules});
+      } else if((dayjs(schedule.date).format('DD')-'0'<today.getDate()) && dayjs(schedule.date).format('MM')-'0'=== today.getMonth()+1) {
+        const schedules = doc.schedules.filter((schedule, idx) => idx !== index); setDoc({ ...doc, schedules});
       }})
   }
   const fetchCurrentdoc = async () => {
     try {
       const response = await axios.get(`http://localhost:3001/doc/account/${userID}`, { headers: { authorization: cookies.access_token } });
-      setDoc(response.data);
-      setCurrSpeciality(response.data.specializations);
+      setDoc(response.data); setCurrSpeciality(response.data.specializations);
     } catch (err) { console.log(err) }
   };
   const handleSubmit = async (event) => {
@@ -122,22 +112,17 @@ export const Account = () => {
     setCurrSpeciality( typeof value === "string" ? value.split(",") : value );
   };
   const fetchComments = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3001/doc/reviews/${doc.username}`);
-      setReviews(response.data.myReviews);
+    try { const response = await axios.get(`http://localhost:3001/doc/reviews/${doc.username}`); setReviews(response.data.myReviews);
     } catch (err) { console.log(err) }
   }
   const handleModal = async (event) => {
     event.stopPropagation();
-    try {
-      const result = await axios.put("http://localhost:3001/doc", { ...doc }, { headers: { authorization: cookies.access_token } });
-      setOpenModal(true)
+    try { const result = await axios.put("http://localhost:3001/doc", { ...doc }, { headers: { authorization: cookies.access_token } }); setOpenModal(true);
     } catch (error) { console.error(error) }
   }
 
   useEffect(() => {
-    fetchCurrentdoc();
-    fetchComments();
+    fetchCurrentdoc(); fetchComments();
   }, []);
   useEffect(() => {
     console.log('UE doc -', doc);

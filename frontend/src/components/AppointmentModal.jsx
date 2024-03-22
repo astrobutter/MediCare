@@ -7,6 +7,21 @@ let today= new Date();
 const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const AppointmentModal = ({ open, onClose, appointment, setProfileDoc, profileDoc, updateSlots }) => {
   const { isDoctor, userID, navigate, speciality } = UserAuth();
+  const makePayment = async(event) => {
+    event.preventDefault();
+    // const body = {userID, doctorId};
+    const body = {userID};
+    try {
+      const headers = { "Content-Type":"application/json"}
+      const response = await fetch(`http://localhost:3001/create-checkout-session/${profileDoc._id}`, {
+        method:"POST",
+        headers:headers,
+        body:JSON.stringify(body)
+      })
+      const data = await response.json();
+      if( data.session.url){ window.location.href = data.session.url; }
+    } catch (error) { console.log(error); }
+  }
   const handleYes = async (event) => {
     try {
       event.stopPropagation();
@@ -36,7 +51,8 @@ const AppointmentModal = ({ open, onClose, appointment, setProfileDoc, profileDo
       }
       updateSlots();
       onClose();
-      navigate( isDoctor==='true' ? '/doctor/account' : '/account');
+      // navigate( isDoctor==='true' ? '/doctor/account' : '/account');
+      makePayment(event);
     } catch (error) { console.log(error) }
   }
   const handleNo = (event) => {
@@ -53,7 +69,8 @@ const AppointmentModal = ({ open, onClose, appointment, setProfileDoc, profileDo
         <div className='modal-wrapper'>
           <div className='modal-header'>Make an appointment for "{speciality}" on {month[dayjs(appointment.date).format('MM')-'0']} {dayjs(appointment.date).format('DD')-'0' -1}, {appointment.time>11? (appointment.time-12 +' p.m.'): (appointment.time +' a.m.')}?</div>
           <div className='modal-buttons'>
-            <button className='modal-yes' onClick={event => handleYes(event)}>Yes</button>
+            {/* <button className='modal-yes' onClick={event => handleYes(event)}>Yes</button> */}
+            <button className='modal-yes' onClick={event => makePayment(event)}>Yes</button>
             <button className='modal-no' onClick={event => handleNo(event)}>No</button>
           </div>
         </div>

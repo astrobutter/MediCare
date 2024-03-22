@@ -8,6 +8,7 @@ import { ReviewCard, AppointmentModal } from '../components/Index';
 import 'react-toastify/dist/ReactToastify.css';
 import '../css/profile.css'
 import '../css/appointmentModal.css'
+import {loadStripe} from '@stripe/stripe-js';
 
 export const Profile = () => {
   const { isDoctor, user, doc } = UserAuth();
@@ -22,9 +23,7 @@ export const Profile = () => {
   let today= new Date();
 
   const fetchComments = async () =>{
-    try {
-      const response = await axios.get(`http://localhost:3001/doc/reviews/${params.username}`);
-      setReviews(response.data.myReviews);
+    try { const response = await axios.get(`http://localhost:3001/doc/reviews/${params.username}`); setReviews(response.data.myReviews);
     } catch (err) { console.log(err) }
   }
   const getUserName = () => {
@@ -33,14 +32,11 @@ export const Profile = () => {
     }else{ setUserReview(review => ({...review, user : user.username}))}
   }
   const fetchDocProfile = async (username) => {
-    try {
-      const response = await axios.get(`http://localhost:3001/doc/profile/${username}`);
-      setProfileDoc(response.data[0]);
+    try { const response = await axios.get(`http://localhost:3001/doc/profile/${username}`); setProfileDoc(response.data[0]);
     } catch (err) { console.log(err) }
   };
   const updateSlots = async () => {
-    try {
-      const result = await axios.put(`http://localhost:3001/doc/appointment/updates`, { ...profileDoc });
+    try { const result = await axios.put(`http://localhost:3001/doc/appointment/updates`, { ...profileDoc });
       console.log('result -', result);
     } catch (err) { console.log(err) }
   }
@@ -49,6 +45,27 @@ export const Profile = () => {
     setAppointment({ user:  userID, doc: params.username, date: date, time: time, })
     setOpenModal(true);
   }
+  // const makePayment = async(event) => {
+  //   event.preventDefault();
+  //   const stripe = await loadStripe(`${process.env.STRIPEPUBLISHABLEKEY}`);
+  //   const body = {profileDoc};
+  //   // const body = { 
+  //   //   doctor:{
+  //   //     'name':"Josh",
+  //   //     'image':'https://www.freepik.com/free-vector/golden-badge-43rd-anniversary_924473.htm#query=43&position=0&from_view=keyword&track=sph&uuid=038dfda7-4a33-463f-a556-fbe971c3cd08',
+  //   //     'price':500,
+  //   //   },
+  //   //   schedules:{
+  //   //     'date':"20-feb-2024",
+  //   //     'time':15,
+  //   //   }
+  //   //  };
+  //   const headers = { "Content-Type":"application/json"}
+  //   const response = await fetch('http://localhost:3001/create-checkout-session', { method:"POST", headers:headers, body:JSON.stringify(body) })  
+  //   const session = await response.json();
+  //   const result = stripe.redirectToCheckout({sessionId:session.id});
+  //   if( result.error ){ console.log(result.error); };
+  // }
   useEffect(() => {
     getUserName();
   }, [user])
