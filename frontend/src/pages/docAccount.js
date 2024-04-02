@@ -122,17 +122,16 @@ export const Account = () => {
   }
 
   useEffect(() => {
-    fetchCurrentdoc(); fetchComments();
+    fetchCurrentdoc();
+    fetchComments();
   }, []);
   useEffect(() => {
-    console.log('UE doc -', doc);
-    { doc.username && fetchCurrentDocAppointment(doc.username)}
+    // console.log('UE doc -', doc);
     updateSchedules();
   }, [doc]);
   useEffect(() => {
     console.log('UE docAppointment -', docAppointment);
   }, [docAppointment]);
-
   useEffect(() => {
     setDoc({ ...doc, specializations: currSpeciality })
   }, [currSpeciality]);

@@ -27,9 +27,8 @@ export const Profile = () => {
     } catch (err) { console.log(err) }
   }
   const getUserName = () => {
-    if( isDoctor === 'true' ) {
-      setUserReview(review => ({...review, user : setProfileDoc.username}))
-    }else{ setUserReview(review => ({...review, user : user.username}))}
+    if( isDoctor === 'true' ) {setUserReview(review => ({...review, user: setProfileDoc.username}))
+    }else{ setUserReview(review => ({...review, user: user.username}))}
   }
   const fetchDocProfile = async (username) => {
     try { const response = await axios.get(`http://localhost:3001/doc/profile/${username}`); setProfileDoc(response.data[0]);
@@ -42,30 +41,9 @@ export const Profile = () => {
   }
   const handleAppointment = (event, date, time, index, index2) => {
     event.stopPropagation();
-    setAppointment({ user:  userID, doc: params.username, date: date, time: time, })
+    setAppointment({ date: date, time: time, })
     setOpenModal(true);
   }
-  // const makePayment = async(event) => {
-  //   event.preventDefault();
-  //   const stripe = await loadStripe(`${process.env.STRIPEPUBLISHABLEKEY}`);
-  //   const body = {profileDoc};
-  //   // const body = { 
-  //   //   doctor:{
-  //   //     'name':"Josh",
-  //   //     'image':'https://www.freepik.com/free-vector/golden-badge-43rd-anniversary_924473.htm#query=43&position=0&from_view=keyword&track=sph&uuid=038dfda7-4a33-463f-a556-fbe971c3cd08',
-  //   //     'price':500,
-  //   //   },
-  //   //   schedules:{
-  //   //     'date':"20-feb-2024",
-  //   //     'time':15,
-  //   //   }
-  //   //  };
-  //   const headers = { "Content-Type":"application/json"}
-  //   const response = await fetch('http://localhost:3001/create-checkout-session', { method:"POST", headers:headers, body:JSON.stringify(body) })  
-  //   const session = await response.json();
-  //   const result = stripe.redirectToCheckout({sessionId:session.id});
-  //   if( result.error ){ console.log(result.error); };
-  // }
   useEffect(() => {
     getUserName();
   }, [user])
@@ -111,7 +89,7 @@ export const Profile = () => {
         <div className='profile-section'>
           <p className='section-tag'>Appointment Slots</p>
           <div className='section-content schedules-container'>
-          { profileDoc.schedules?.map((schedule,index)=>(
+          {/* { profileDoc.schedules?.map((schedule,index)=>(
             ((dayjs(schedule.date).format('DD')-'0'-1>= today.getDate()) && dayjs(schedule.date).format('MM')-'0'>= today.getMonth()+1) 
             && (
               <div className='schedule-wrap'>
@@ -124,6 +102,40 @@ export const Profile = () => {
                 ))}
                 </div>
               </div>
+            )
+          ))} */}
+          { profileDoc.schedules?.map((schedule,index)=>(
+            ( (dayjs(schedule.date).format('MM')-'0'> today.getMonth()+1) ? (
+              // (dayjs(schedule.date).format('DD')-'0'-1>= today.getDate()) 
+              // && (
+                <div className='schedule-wrap'>
+                  <div className='schedule-date' key={index}>{dayjs(schedule.date).format('DD')-'0' -1} / {dayjs(schedule.date).format('MM')} / {dayjs(schedule.date).format('YYYY')}</div>
+                  <div className='schedule-timings'>
+                  {schedule.timings?.map((timing,index2)=>(
+                    <div className='schedule-time' key={index2} onClick={event => handleAppointment( event, schedule.date, timing.time, index, index2)}>
+                      {timing.time>11? (timing.time-12 +'p.m.'): (timing.time +'a.m.')} - ({timing.slots})
+                    </div>
+                  ))}
+                  </div>
+                </div>
+              // )
+            )
+            :
+            (
+              (dayjs(schedule.date).format('DD')-'0'-1>= today.getDate()) 
+              && (
+                <div className='schedule-wrap'>
+                  <div className='schedule-date' key={index}>{dayjs(schedule.date).format('DD')-'0' -1} / {dayjs(schedule.date).format('MM')} / {dayjs(schedule.date).format('YYYY')}</div>
+                  <div className='schedule-timings'>
+                  {schedule.timings?.map((timing,index2)=>(
+                    <div className='schedule-time' key={index2} onClick={event => handleAppointment( event, schedule.date, timing.time, index, index2)}>
+                      {timing.time>11? (timing.time-12 +'p.m.'): (timing.time +'a.m.')} - ({timing.slots})
+                    </div>
+                  ))}
+                  </div>
+                </div>
+              )
+            )
             )
           ))}
           <AppointmentModal open={openModal} onClose={() => setOpenModal(false)} appointment={appointment} setProfileDoc={setProfileDoc} profileDoc={profileDoc} updateSlots={updateSlots}/>

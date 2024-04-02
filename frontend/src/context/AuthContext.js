@@ -46,61 +46,8 @@ export const AuthContextProvider = ({ children }) => {
   const [userAppointments, setUserAppointments] = useState([]);
   const [userAppointment, setUserAppointment] = useState();
   const [docAppointment, setDocAppointment] = useState([]);
-  const doctorSpeciality = [
-    'Anatomical Pathology',
-    'Anesthesiology',
-    'Ayurveda',
-    'Cardiology',
-    'Cardiovascular & Thoracic Surgery',
-    'Clinical Immunology/Allergy',
-    'Critical Care Medicine',
-    'Dentistry',
-    'Dermatology',
-    'Diabetology',
-    'Diagnostic Radiology',
-    'Diet & Nutrition',
-    'Ear, Nose, Throat',
-    'Emergency Medicine',
-    'Endocrinology and Metabolism',
-    'Family Medicine',
-    'Gastroenterology',
-    'General Physician',
-    'General Internal Medicine',
-    'General Surgery',
-    'General/Clinical Pathology',
-    'Geriatric Medicine',
-    'Hematology',
-    'Homeopathy',
-    'Medical Biochemistry',
-    'Medical Genetics',
-    'Medical Microbiology and Infectious Diseases',
-    'Medical Oncology',
-    'Nephrology',
-    'Neurology',
-    'Neurosurgery',
-    'Nuclear Medicine',
-    'Obstetrics/Gynecology',
-    'Occupational Medicine',
-    'Ophthalmology',
-    'Orthopedic',
-    'Orthopedic Surgery',
-    'Otolaryngology',
-    'Pediatrics',
-    'Physical Medicine and Rehabilitation (PM & R)',
-    'Physiotherapy',
-    'Plastic Surgery',
-    'Psychiatry',
-    'Psychology',
-    'Public Health and Preventive Medicine (PhPm)',
-    'Pulmonology',
-    'Radiation Oncology',
-    'Respirology',
-    'Rheumatology',
-    'Sexology',
-    'Urology',
-    'Veterinary',
-  ];
-const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const doctorSpeciality = [ 'Anatomical Pathology', 'Anesthesiology', 'Ayurveda', 'Cardiology', 'Cardiovascular & Thoracic Surgery', 'Clinical Immunology/Allergy','Critical Care Medicine','Dentistry','Dermatology','Diabetology','Diagnostic Radiology','Diet & Nutrition','Ear, Nose, Throat','Emergency Medicine','Endocrinology and Metabolism','Family Medicine','Gastroenterology','General Physician','General Internal Medicine','General Surgery','General/Clinical Pathology','Geriatric Medicine','Hematology','Homeopathy','Medical Biochemistry','Medical Genetics','Medical Microbiology and Infectious Diseases','Medical Oncology','Nephrology','Neurology','Neurosurgery','Nuclear Medicine','Obstetrics/Gynecology','Occupational Medicine','Ophthalmology','Orthopedic','Orthopedic Surgery','Otolaryngology','Pediatrics','Physical Medicine and Rehabilitation (PM & R)','Physiotherapy','Plastic Surgery','Psychiatry','Psychology','Public Health and Preventive Medicine (PhPm)','Pulmonology','Radiation Oncology','Respirology','Rheumatology','Sexology','Urology','Veterinary',];
+  const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
   const [ speciality, setSpeciality] = useState( doctorSpeciality[17]);
   const logout = () => {
@@ -120,31 +67,22 @@ const month = ["January","February","March","April","May","June","July","August"
       setDoc(response.data);
     } catch (err) { console.log(err) }
   };
-  const fetchDocProfile = async (username) => {
-    try {
-      const response = await axios.get(`http://localhost:3001/doc/profile/${username}`);
-      setDoc(response.data[0]);
-    } catch (err) { console.log(err) }
-  };
   const fetchAppointments = async () => {
     try {
-        const response = await axios.get(`http://localhost:3001/auth/appointments/user/${userID}`, { headers: { authorization: cookies.access_token } });
-        setUserAppointments(response.data);
-        console.log(response.data);
+      const response = await axios.get(`http://localhost:3001/auth/appointments/user/${userID}`, { headers: { authorization: cookies.access_token } });
+      setUserAppointments(response.data);
     } catch (err) { console.log(err) }
   }
   const fetchCurrentAppointment = async (_id) => {
     try {
-        const response = await axios.get(`http://localhost:3001/auth/appointment/user/${_id}`, { headers: { authorization: cookies.access_token } });
-        setUserAppointment(response.data);
-        console.log(response.data);
+      const response = await axios.get(`http://localhost:3001/auth/appointment/user/${_id}`, { headers: { authorization: cookies.access_token } });
+      setUserAppointment(response.data);
     } catch (err) { console.log(err) }
   }
-  const fetchCurrentDocAppointment = async (username) => {
+  const fetchCurrentDocAppointment = async () => {
     try {
-        const response = await axios.get(`http://localhost:3001/auth/appointment/doc/${username}`, { headers: { authorization: cookies.access_token } });
-        setDocAppointment(response.data);
-        console.log(response.data);
+      const response = await axios.get(`http://localhost:3001/auth/appointment/doc/${userID}`, { headers: { authorization: cookies.access_token } });
+      setDocAppointment(response.data);
     } catch (err) { console.log(err) }
   }
   return (

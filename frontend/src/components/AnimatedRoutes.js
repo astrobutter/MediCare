@@ -14,7 +14,6 @@ import { useGetUserID } from '../hooks/useGetUserID';
 import { useGetIsDoc } from '../hooks/useGetIsDoc';
 import { UserAccount } from '../pages/userAccount';
 import { UserAppointment } from '../pages/userAppointment';
-import { Checkout } from '../pages/checkout';
 import { PaymentSuccess } from '../pages/paymentSuccess';
 import { PaymentFailed } from '../pages/paymentFailed';
 
@@ -35,7 +34,6 @@ export const AnimatedRoutes = () => {
         <Route path="/doctor/account" element={<Account />} /> 
         <Route path="/doc/:username" element={<Profile />} />
         <Route path="/user/appointment/:_id" element={<UserAppointment />} />
-        <Route path="/checkout" element={<Checkout />} />
         <Route path="/payment-complete" element={<PaymentSuccess />} />
         <Route path="/payment-failed" element={<PaymentFailed />} />
     </Routes>

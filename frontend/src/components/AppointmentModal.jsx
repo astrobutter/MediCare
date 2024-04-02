@@ -9,8 +9,7 @@ const AppointmentModal = ({ open, onClose, appointment, setProfileDoc, profileDo
   const { isDoctor, userID, navigate, speciality } = UserAuth();
   const makePayment = async(event) => {
     event.preventDefault();
-    // const body = {userID, doctorId};
-    const body = {userID};
+    const body = { userID, appointment};
     try {
       const headers = { "Content-Type":"application/json"}
       const response = await fetch(`http://localhost:3001/create-checkout-session/${profileDoc._id}`, {
@@ -19,6 +18,8 @@ const AppointmentModal = ({ open, onClose, appointment, setProfileDoc, profileDo
         body:JSON.stringify(body)
       })
       const data = await response.json();
+      console.log(data);
+      onClose();
       if( data.session.url){ window.location.href = data.session.url; }
     } catch (error) { console.log(error); }
   }
@@ -55,10 +56,7 @@ const AppointmentModal = ({ open, onClose, appointment, setProfileDoc, profileDo
       makePayment(event);
     } catch (error) { console.log(error) }
   }
-  const handleNo = (event) => {
-    event.stopPropagation();
-    onClose();
-  }
+  const handleNo = (event) => { event.stopPropagation(); onClose(); }
 
   if (!open) return null;
 

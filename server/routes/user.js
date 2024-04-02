@@ -115,33 +115,23 @@ router.get('/appointment/user/:_id', verifyToken, async (req, res) => {
     res.status(201).json(appointment);
   } catch (err) { console.log(err) }
 })
-router.get('/appointment/doc/:username', verifyToken, async (req, res) => {
-  const appointment = await AppointmentModel.find({ doc: req.params.username })
-  try {
-    res.status(201).json(appointment);
+router.get('/appointment/doc/:userId', verifyToken, async (req, res) => {
+  const appointment = await AppointmentModel.find({ doc: req.params.userId })
+  try { res.status(201).json(appointment);
   } catch (err) { console.log(err) }
 })
 
 router.get("/get-signature", (req, res) => {
   const timestamp = Math.round(new Date().getTime() / 1000)
-  const signature = cloudinary.utils.api_sign_request({
-      timestamp: timestamp
-    }, cloudinaryConfig.api_secret
-  )
+  const signature = cloudinary.utils.api_sign_request({ timestamp: timestamp}, cloudinaryConfig.api_secret )
   res.json({ timestamp, signature })
 })
 
 router.post("/do-something-with-photo", async (req, res) => {
   const expectedSignature = cloudinary.utils.api_sign_request({ public_id: req.body.public_id, version: req.body.version }, cloudinaryConfig.api_secret)
   try {
-    if (expectedSignature === req.body.signature) {
-      res.status(201).json({  imgID : req.body.public_id})
-      // await fse.ensureFile("./data.txt")
-      // const existingData = await fse.readFile("./data.txt", "utf8")
-      // await fse.outputFile("./data.txt", existingData + req.body.public_id + "\n")
-    }
-  } catch (error) {
-    res.status(500).json(err);
+    if (expectedSignature === req.body.signature) { res.status(201).json({  imgID : req.body.public_id}) }
+  } catch (error) { res.status(500).json(err);
   }
 })
 
