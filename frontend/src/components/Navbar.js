@@ -26,7 +26,7 @@ export const Navbar = () => {
   useEffect(()=>{
     // console.log(docStatus)
     { userID && (isDoctor==='true' ? fetchCurrentDoc() : fetchCurrentUser()) }
-    console.log('getuserisdoctors UE-', isDoctor);
+    // console.log('getuserisdoctors UE-', isDoctor);
   }, [isDoctor])
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export const Navbar = () => {
           <ul>
             <li><NavLink to="/">Home</NavLink></li>
             <li><NavLink to="/find-a-doctor">Find a Doctor</NavLink></li>
-            <li><NavLink to="/community">Community Forum</NavLink></li>
+            <li><NavLink to="/forum">Community Forum</NavLink></li>
           </ul>
         </div>
 

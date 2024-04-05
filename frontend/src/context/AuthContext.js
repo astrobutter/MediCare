@@ -46,6 +46,9 @@ export const AuthContextProvider = ({ children }) => {
   const [userAppointments, setUserAppointments] = useState([]);
   const [userAppointment, setUserAppointment] = useState();
   const [docAppointment, setDocAppointment] = useState([]);
+  const [searchedForum, setSearchedForum] = useState([])
+  const [posts, setPosts] = useState([]);
+
   const doctorSpeciality = [ 'Anatomical Pathology', 'Anesthesiology', 'Ayurveda', 'Cardiology', 'Cardiovascular & Thoracic Surgery', 'Clinical Immunology/Allergy','Critical Care Medicine','Dentistry','Dermatology','Diabetology','Diagnostic Radiology','Diet & Nutrition','Ear, Nose, Throat','Emergency Medicine','Endocrinology and Metabolism','Family Medicine','Gastroenterology','General Physician','General Internal Medicine','General Surgery','General/Clinical Pathology','Geriatric Medicine','Hematology','Homeopathy','Medical Biochemistry','Medical Genetics','Medical Microbiology and Infectious Diseases','Medical Oncology','Nephrology','Neurology','Neurosurgery','Nuclear Medicine','Obstetrics/Gynecology','Occupational Medicine','Ophthalmology','Orthopedic','Orthopedic Surgery','Otolaryngology','Pediatrics','Physical Medicine and Rehabilitation (PM & R)','Physiotherapy','Plastic Surgery','Psychiatry','Psychology','Public Health and Preventive Medicine (PhPm)','Pulmonology','Radiation Oncology','Respirology','Rheumatology','Sexology','Urology','Veterinary',];
   const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
@@ -85,6 +88,23 @@ export const AuthContextProvider = ({ children }) => {
       setDocAppointment(response.data);
     } catch (err) { console.log(err) }
   }
+  const search  = async (search) => {
+    if (search){
+      try {
+        const response = await axios.post(`http://localhost:3001/forum/search`, {search});
+        setSearchedForum(response.data);
+        navigate("/search");
+      } catch (err) { console.log(err) }
+    }
+  }
+  const fetchPosts = async (page) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/forum?page=${page}`);
+      const { posts, totalPages } = response.data;
+      setPosts(posts);
+      setTotalPages(totalPages);
+    } catch (err) { console.log(err) }
+  };
   return (
     <UserContext.Provider value={{
       userID,
@@ -115,6 +135,13 @@ export const AuthContextProvider = ({ children }) => {
       month,
       totalPages,
       setTotalPages,
+      search,
+      fetchPosts,
+      posts,
+      setPosts,
+      totalPages,
+      setTotalPages,
+
     }}>
       {children}
     </UserContext.Provider>

@@ -6,6 +6,7 @@ import { AppointmentModel } from "../models/Appointment.js";
 export const getCheckoutSession = async (req, res) => {
     const { userID, appointment } =  req.body;
     const { doctorId } =  req.params;
+    // console.log(doctorId, userID, appointment);
     try {
         const desc = appointment.date.split('T')[0]+', '+appointment.time+':00 ';
         const stripe = new Stripe(process.env.STRIPESECRETKEY);
@@ -28,13 +29,13 @@ export const getCheckoutSession = async (req, res) => {
                 }, quantity: 1
             }]
         })
-        const booking = new AppointmentModel({ doctor:doctor._id, user:user._id, session:session.id, date:appointment.date, time:appointment.time })
+        const booking = new AppointmentModel({ doc:doctorId, user:userID, session:session.id, date:appointment.date, time:appointment.time, status: true });
+        // status is set true, bcz to subsequently track the paymentintent we need web hooks.
         await booking.save();
-
         // appointmentSchema.pre(/^find/,  function(next){
-        //     this.populate('user').populate({ path: 'doctor', select:'name' })
+        //     this.populate('users').populate({ path: 'doctors', select:'name' });
+        //     next();
         // });
-        // console.log(session);
         res.status(200).json({ success:true, message:'sucessfully', session});
     } catch (err) { res.status(500).json({ success:false, message:'failed'}); }
 }

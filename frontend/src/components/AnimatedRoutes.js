@@ -16,6 +16,11 @@ import { UserAccount } from '../pages/userAccount';
 import { UserAppointment } from '../pages/userAppointment';
 import { PaymentSuccess } from '../pages/paymentSuccess';
 import { PaymentFailed } from '../pages/paymentFailed';
+import { CommunityForum } from '../pages/communityForum';
+import { ForumPage } from '../pages/forumPage';
+import { EditPage } from '../pages/editPage';
+import { CreateForum } from '../pages/createForum';
+import { PostSearch } from '../pages/postSearch';
 
 export const AnimatedRoutes = () => {
     const userID = useGetUserID();
@@ -36,6 +41,11 @@ export const AnimatedRoutes = () => {
         <Route path="/user/appointment/:_id" element={<UserAppointment />} />
         <Route path="/payment-complete" element={<PaymentSuccess />} />
         <Route path="/payment-failed" element={<PaymentFailed />} />
+        <Route path="/forum" element={<CommunityForum />} />
+        <Route path="/forum/:slug" element={<ForumPage />} />
+        <Route path="/forum/edit/:slug" element={<EditPage />} />
+        <Route path="/forum/create" element={<CreateForum />} />
+        <Route path="/forum/search" element={<PostSearch />} />
     </Routes>
     <Footer />
     </AnimatePresence>

@@ -124,6 +124,7 @@ export const Account = () => {
   useEffect(() => {
     fetchCurrentdoc();
     fetchComments();
+    fetchCurrentDocAppointment();
   }, []);
   useEffect(() => {
     // console.log('UE doc -', doc);

@@ -29,6 +29,7 @@
     font-weight: 300;
 }
 .user-account .left .username{
+    background-color: red;
     color: rgba(0, 0, 0, 0.486);
     font-size: 1.4rem;
     font-weight: 300;
@@ -53,7 +54,7 @@
 }
 .user-account .right .table .row{
     display: grid;
-    grid-template-columns: repeat( 3, 2fr) 1fr;
+    grid-template-columns: repeat( 3, 2fr);
     grid-row-gap: 1rem;
     width: 100%;
 }

@@ -63,19 +63,20 @@ router.get("/reviews/:username", async (req, res) => {
     res.status(201).json( { myReviews } );   
   } catch (err) { res.status(500).json(err) }
 });
-router.post('/appointment', async(req, res) => {
-  const { date, time, user, doc } = req.body;
-  const appointment = new AppointmentModel({date, time, user, doc});
-  try {
-    const result = await appointment.save();
-    res.status(201).json(result);
-  } catch (err) { res.status(500).json(err) }
-})
+// router.post('/appointment', async(req, res) => {
+//   const { date, time, user, doc } = req.body;
+//   const appointment = new AppointmentModel({date, time, user, doc});
+//   try {
+//     const result = await appointment.save();
+//     res.status(201).json(result);
+//   } catch (err) { res.status(500).json(err) }
+// })
 router.put("/appointment/updates", async (req, res) => {  
   try {
-    // const result = await DoctorModel.findByIdAndUpdate(req.body._id,{
-    //     name: req.body.name, dob:  req.body.dob, gender: req.body.gender, email: req.body.email, imageUrl: req.body.imageUrl, educations: req.body.educations, experiences: req.body.experiences, about: req.body.about, username: req.body.username, password: req.body.password, specializations: req.body.specializations, schedules: req.body.schedules
-    // });
+    // const currApointment = await AppointmentModel.findOneAndUpdate( {session:req.body.paymentSession}, {status : "paid"});
+    const result = await DoctorModel.findByIdAndUpdate(req.body._id,{
+        name: req.body.name, dob:  req.body.dob, gender: req.body.gender, email: req.body.email, imageUrl: req.body.imageUrl, educations: req.body.educations, experiences: req.body.experiences, about: req.body.about, username: req.body.username, password: req.body.password, specializations: req.body.specializations, schedules: req.body.schedules
+    });
     res.status(201).json({result});
   } catch (err) { res.status(500).json(err) }
 });

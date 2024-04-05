@@ -19,14 +19,11 @@ export const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
     jwt.verify(authHeader, "secret", (err) => {
-      if (err) {
-        return res.sendStatus(403);
+      if (err) { return res.sendStatus(403);
       }
       next();
     });
-  } else {
-    res.sendStatus(401);
-  }
+  } else { res.sendStatus(401); }
 };
 router.post("/register", async (req, res) => {
   const { username, password, imageUrl, name, email, gender, dob } = req.body;
@@ -43,7 +40,6 @@ router.post("/register", async (req, res) => {
   //   bcrypt.hash(`${password}`, salt , (err, hash) =>{
   //       if(err) throw (err);
   //   })})
-  // console.log(hashedPassword);
   const newUser = new UserModel({  name, email, imageUrl, username, password: hashedPassword, gender, dob });
   await newUser.save();
   res.json({ message: "User registered successfully" });
@@ -94,29 +90,26 @@ router.post("/doc/login", async (req, res) => {
 });
 
 router.get('/user/:userID', verifyToken, async (req, res) => {
-  // console.log(req.params.userID);
   const User = await UserModel.findById(req.params.userID);
   try {
     // console.log(User);
     res.status(201).json(User);
-
   } catch (err) { console.log(err) }
 })
 
 router.get('/appointments/user/:userID', verifyToken, async (req, res) => {
   const appointments = await AppointmentModel.find({ user: req.params.userID })
-  try {
-    res.status(201).json(appointments);
+  try { res.status(201).json(appointments);
   } catch (err) { console.log(err) }
 })
 router.get('/appointment/user/:_id', verifyToken, async (req, res) => {
   const appointment = await AppointmentModel.findById(req.params._id)
-  try {
-    res.status(201).json(appointment);
+  try { res.status(201).json(appointment);
   } catch (err) { console.log(err) }
 })
 router.get('/appointment/doc/:userId', verifyToken, async (req, res) => {
   const appointment = await AppointmentModel.find({ doc: req.params.userId })
+  console.log(appointment);
   try { res.status(201).json(appointment);
   } catch (err) { console.log(err) }
 })
@@ -131,8 +124,7 @@ router.post("/do-something-with-photo", async (req, res) => {
   const expectedSignature = cloudinary.utils.api_sign_request({ public_id: req.body.public_id, version: req.body.version }, cloudinaryConfig.api_secret)
   try {
     if (expectedSignature === req.body.signature) { res.status(201).json({  imgID : req.body.public_id}) }
-  } catch (error) { res.status(500).json(err);
-  }
+  } catch (error) { res.status(500).json(err); }
 })
 
 
