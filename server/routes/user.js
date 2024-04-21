@@ -109,7 +109,7 @@ router.get('/appointment/user/:_id', verifyToken, async (req, res) => {
 })
 router.get('/appointment/doc/:userId', verifyToken, async (req, res) => {
   const appointment = await AppointmentModel.find({ doc: req.params.userId })
-  console.log(appointment);
+  // console.log(appointment);
   try { res.status(201).json(appointment);
   } catch (err) { console.log(err) }
 })

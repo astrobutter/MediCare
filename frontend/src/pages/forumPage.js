@@ -38,10 +38,11 @@ export const ForumPage = () => {
   const getUserName = async (id) => {
     try {
       let response;
-      if( isDoctor ){
+      if( isDoctor===true ){
         response = await axios.get(`http://localhost:3001/forum/user/${id}`)
       } else {
         response = await axios.get(`http://localhost:3001/forum/pateint/${id}`)
+        console.log('getUserName response: ', response);
       }
       setComment(comment => ({...comment, name : response.data.username }));
       setUserName(response.data.username)
@@ -64,7 +65,7 @@ export const ForumPage = () => {
     } catch (err) { console.log(err) }
   }
   useEffect(()=>{
-    console.log(post)
+    console.log('post: ', post);
   },[post])
   useEffect(() => {
       fetchPost();
