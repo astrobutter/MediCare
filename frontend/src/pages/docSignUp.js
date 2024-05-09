@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { axios, motion, toast } from '../components/NpmPackages';
-import { Box, Tab, TabContext, TabList, TabPanel } from '../components/MaterialUI'
 import { FiMinusCircle, FaPlus, FaEye, FaEyeSlash } from "../components/ReactIcons";
+import Box from '@mui/material/Box';
+import Tab from '@mui/material/Tab';
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 import 'react-toastify/dist/ReactToastify.css';
 import '../css/doc-sign-up.css'
 export const Doc_sign_up = () => {
@@ -149,7 +153,6 @@ export const Doc_sign_up = () => {
                   <button name="imageUrl" type="submit" className="submit-image-button" onClick={submitImage}>Upload</button>
                 </div>
               </div>
-              <button type="submit" className="save-button">Save</button>
             </form>
           </TabPanel>
           <TabPanel value="2" className="tabPanel">
@@ -187,7 +190,6 @@ export const Doc_sign_up = () => {
                 <label htmlFor="about">About:</label>
                 <textarea type="text" value={user.about} placeholder='5 years in medical.' required rows={'2'} onChange={(event) => setUser({ ...user, about: event.target.value })} />
               </div>
-              <button type="submit" className="save-button">Save</button>
             </form>
           </TabPanel>
           <TabPanel value="3" className="tabPanel">
