@@ -29,7 +29,7 @@ export const getCheckoutSession = async (req, res) => {
                 }, quantity: 1
             }]
         })
-        const booking = new AppointmentModel({ doc:doctorId, user:userID, session:session.id, date:appointment.date, time:appointment.time, status: true });
+        const booking = new AppointmentModel({ doc:doctorId, user:userID, session:session.id, date:appointment.date, time:appointment.time, status: true, name:user.name, email: user.email, username: user.username, imageUrl:user.imageUrl, gender:user.gender, dob:user.dob });
         // status is set true, bcz to subsequently track the paymentintent we need web hooks.
         await booking.save();
         // appointmentSchema.pre(/^find/,  function(next){

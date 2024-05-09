@@ -20,7 +20,7 @@ import { CommunityForum } from '../pages/communityForum';
 import { ForumPage } from '../pages/forumPage';
 import { EditPage } from '../pages/editPage';
 import { CreateForum } from '../pages/createForum';
-import { PostSearch } from '../pages/postSearch';
+import { Search } from '../pages/search';
 
 export const AnimatedRoutes = () => {
     const userID = useGetUserID();
@@ -45,7 +45,7 @@ export const AnimatedRoutes = () => {
         <Route path="/forum/:slug" element={<ForumPage />} />
         <Route path="/forum/edit/:slug" element={<EditPage />} />
         <Route path="/forum/create" element={<CreateForum />} />
-        <Route path="/forum/search" element={<PostSearch />} />
+        <Route path="/forum/search" element={<Search />} />
     </Routes>
     <Footer />
     </AnimatePresence>

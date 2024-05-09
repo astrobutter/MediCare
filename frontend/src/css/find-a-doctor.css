@@ -27,8 +27,18 @@
   grid-column-gap: 2rem;
   grid-row-gap: 2.5rem;
 }
+.no-doc{
+  width: 100%;
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .no-doc .faq{
+  /* width: 100%; */
   background-color: white;
+  display: flex;
+  flex-direction: column;
 }
 .no-doc .faq .accordion .accordion-style{
   border: 2px solid rgba(0, 0, 0, 0.1) !important;
@@ -36,4 +46,14 @@
   margin: 1.5rem 0;
   padding: 0.5rem;
   border-radius: 10px;
+  font-size: 1.2rem !important;
+}
+.MuiTypography-root{
+  width: 100% !important;
+}
+.width-100, .width-100 p{
+  width: 100% !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
 }

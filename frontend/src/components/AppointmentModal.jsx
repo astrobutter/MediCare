@@ -32,21 +32,21 @@ const AppointmentModal = ({ open, onClose, appointment, setProfileDoc, profileDo
         // console.log("RESPONSE -", response);
         // toast.success('Appointment Booked.', { position: "bottom-left", autoClose: 1500, hideProgressBar: true, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "dark"});
         // if( response.data ){
-          // profileDoc.schedules?.map( (schedule, index) => {
-          //   // console.log(schedule.date, appointment.date);
-          //   if( schedule.date === appointment.date ){
-          //     // console.log('Comp -', schedule.date, appointment.date);
-          //     schedule.timings.map( (timing, index2) => {
-          //       if( timing.time===appointment.time){
-          //         // console.log('Comp time-', timing.time, appointment.time);
-          //         let schedules = profileDoc.schedules;
-          //         let slots= schedules[index].timings[index2].slots-'0';
-          //         slots-=1;
-          //         schedules[index].timings[index2].slots= slots;
-          //         setProfileDoc({ ...profileDoc, schedules});
-          //       }})
-          //   }}
-          // )
+          profileDoc.schedules?.map( (schedule, index) => {
+            // console.log(schedule.date, appointment.date);
+            if( schedule.date === appointment.date ){
+              // console.log('Comp -', schedule.date, appointment.date);
+              schedule.timings.map( (timing, index2) => {
+                if( timing.time===appointment.time){
+                  // console.log('Comp time-', timing.time, appointment.time);
+                  let schedules = profileDoc.schedules;
+                  let slots= schedules[index].timings[index2].slots-'0';
+                  slots-=1;
+                  schedules[index].timings[index2].slots= slots;
+                  setProfileDoc({ ...profileDoc, schedules});
+                }})
+            }}
+          )
         // }
         makePayment(event);
       }

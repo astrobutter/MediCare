@@ -92,8 +92,9 @@ export const AuthContextProvider = ({ children }) => {
     if (search){
       try {
         const response = await axios.post(`http://localhost:3001/forum/search`, {search});
+        console.log('setSearchedForum :', response.data);
         setSearchedForum(response.data);
-        navigate("/search");
+        navigate("/forum/search");
       } catch (err) { console.log(err) }
     }
   }
@@ -125,6 +126,8 @@ export const AuthContextProvider = ({ children }) => {
       setUserAppointment,
       docAppointment,
       setDocAppointment,
+      searchedForum,
+      setSearchedForum,
       doctorSpeciality,
       fetchCurrentUser,
       fetchCurrentDoc,

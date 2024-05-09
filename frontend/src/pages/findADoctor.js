@@ -16,7 +16,7 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({ padding: 
 export const Find_a_doctor = () => {
   const { totalPages, setTotalPages, doctorSpeciality, speciality, setSpeciality } = UserAuth();
 
-  const [ name, setName] = useState( ) ;
+  const [ name, setName] = useState("") ;
   const [currentPage, setCurrentPage] = useState(1);
   const [ doctors, setDoctors ] = useState();
 
@@ -26,29 +26,19 @@ export const Find_a_doctor = () => {
   const handleLastPage = () => { setCurrentPage(totalPages); };
 
   const fetchDoctors = async (page) => {
+    console.log("FD-", name);
     try {
       const response = await axios.get(`http://localhost:3001/doc/${speciality}?page=${page}`);
-      // console.log(response)
       const { doctor, totalPages } = response.data;
       setDoctors(doctor);
       setTotalPages(totalPages);
-      console.log('FD -', doctors);
     } catch (err) { console.log(err) }
   };
 
-  useEffect(() => {
-    // console.log(doctors)
-  }, [doctors])
-{/*
-  useEffect(() => {
-    // fetchRecipes(currentPage);
-    // { userID && fetchSavedRecipesID(); }
-    // console.log(savedRecipesID);
-  // }, [recipes, savedRecipesID]);
-  }, [ currentPage]);
-*/}
+  useEffect(()=>{
+    console.log('UE name-', name);
+  },[name])
 
-  // const [inputValue, setInputValue] = React.useState('');
   return (
     <motion.div className='find-a-doctor page' initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x: '0%' }} exit={{ opacity: 0, x: '100%' }}>
       <div className='autocomplete-tab'>
@@ -65,8 +55,8 @@ export const Find_a_doctor = () => {
         </div>
         :
         <div className='no-doc'>
-          <div className='section faq'>
-            <div className='max-width'>
+          <div className='max-width'>
+          <div className='faq'>
             <div className='section-text-box'>
               <h3>FAQ's</h3>
               <div className='section-sub-text'>Mostly asked questions regarding the platform</div>
@@ -74,27 +64,25 @@ export const Find_a_doctor = () => {
             <div className='accordion'>
             <Accordion className='accordion-style' >
               <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header" className='accordionsummary-style'><Typography className='typography-style'>Lorem ipsum dolor sit amet-1?</Typography></AccordionSummary>
-              <AccordionDetails><Typography className='detail-typography-style'> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Typography></AccordionDetails>
+              <AccordionDetails>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</AccordionDetails>
             </Accordion>
             <Accordion className='accordion-style'>
               <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2-content" id="panel2-header"  className='accordionsummary-style'><Typography className='typography-style'>Lorem ipsum dolor sit amet-2?</Typography></AccordionSummary>
-              <AccordionDetails><Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Typography></AccordionDetails>
+              <AccordionDetails>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</AccordionDetails>
             </Accordion>
             <Accordion className='accordion-style'>
               <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3-content" id="panel3-header"  className='accordionsummary-style'><Typography className='typography-style'>Lorem ipsum dolor sit amet-3?</Typography></AccordionSummary>
-              <AccordionDetails><Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Typography></AccordionDetails>
+              <AccordionDetails>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</AccordionDetails>
             </Accordion>
             <Accordion className='accordion-style'>
               <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel4-content" id="panel4-header"  className='accordionsummary-style'><Typography className='typography-style'>Lorem ipsum dolor sit amet-4?</Typography></AccordionSummary>
-              <AccordionDetails><Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Typography></AccordionDetails>
+              <AccordionDetails>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</AccordionDetails>
             </Accordion>
             </div>
-            </div>
+          </div>
           </div>
         </div>
       }
-
-
     </motion.div>
   )
 }

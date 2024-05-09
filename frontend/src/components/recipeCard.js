@@ -6,14 +6,6 @@ import "../App.css";
 
 const RecipeCard = (props) => {
     const userID = useGetUserID();
-    // const { } = UserAuth();
-    
-    // useEffect(() => {
-        // { userID && fetchSavedRecipes(); }
-        // { userID && fetchSavedRecipesID(); }
-    // }, [savedRecipesID]);
-    //   console.log(savedRecipesID.includes(props._id));
-    // console.log(id);
     return (
     <div to={`/recipe/${props.slug}`} className="home-recipe-card" >
         <img src={props.imageUrl} alt={props.name} />

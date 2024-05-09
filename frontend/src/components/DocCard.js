@@ -10,7 +10,7 @@ export const DocCard = ({doc}) => {
       <img src={doc.imageUrl} />
       <div className='info-container'>
         <h2>Dr. {doc.name}</h2>
-        <div className='review-wrapper'><FaCheckToSlot /><p>(0)</p></div>
+        {/* <div className='review-wrapper'><FaCheckToSlot /><p>(0)</p></div> */}
         <div className='button-container'><button onClick={(event) => Navigate(`/doc/${doc.username}`)}><FaArrowRightLong /></button></div>
       </div>
     </div>

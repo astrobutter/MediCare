@@ -10,7 +10,7 @@ import '../css/profile.css'
 import '../css/appointmentModal.css'
 
 export const Profile = () => {
-  const { isDoctor, user, doc} = UserAuth();
+  const { isDoctor, user} = UserAuth();
   const params = useParams()
   const userID = useGetUserID();
   const [ profileDoc, setProfileDoc] = useState({ name: "", dob:"", gender: "", email: "", imageUrl: "", educations: [], experiences: [], specializations: [], schedules: [], about: "", username: "", password: "", price: 0,});

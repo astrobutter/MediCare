@@ -66,12 +66,29 @@
  .right .table .header{
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat( 6, 1fr);
+    grid-row-gap: 1rem;
 }
  .right .table .row{
     display: grid;
-    grid-template-columns: repeat( 3, 2fr) 1fr;
+    grid-template-columns: repeat( 6, 1fr);
     grid-row-gap: 1rem;
+    padding: auto 0;
     width: 100%;
+}
+.right .table .row .pateint-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+.right .table .row img{
+    aspect-ratio: 1;
+    height: 4rem;
+    border-radius: 50%;
+    object-fit: cover;
 }
  .right .table .row .username{
     color: black;

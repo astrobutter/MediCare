@@ -233,15 +233,21 @@ export const Account = () => {
             <h2>My Appointments</h2>
                 <div className={docAppointment&&'table' }>
                     <div className='row header'>
-                        <div>Pateint Id</div>
+                        <div>Photo</div>
+                        <div>Name</div>
+                        <div>Gender</div>
                         <div>Appointment Date</div>
                         <div>Appointment Time</div>
+                        <div>Booked on</div>
                     </div>
                     { docAppointment?.map((appointment, index) => (
                         <div key={index} className='row'>
-                            <button className='username'>{appointment.user}</button>
-                            <div>{month[dayjs(appointment.date).format('MM')-'0']} {dayjs(appointment.date).format('DD')-'0' -1}, {dayjs(appointment.date).format('YYYY')}</div>
+                            <div className='pateint-img'><img src={appointment.imageUrl} /></div>
+                            <div>{appointment.name}</div>
+                            <div>{appointment.gender}</div>
+                            <div>{month[dayjs(appointment.date).format('MM')-'0']} {dayjs(appointment.date).format('DD')-'0'}, {dayjs(appointment.date).format('YYYY')}</div>
                             <div>{appointment.time>11? (appointment.time-12 +' p.m.'): (appointment.time +' a.m.')}</div>
+                            <div>{month[dayjs(appointment.dateTag).format('MM')-'0']} {dayjs(appointment.dateTag).format('DD')-'0'}, {dayjs(appointment.dateTag).format('YYYY')}</div>
                             {/* <button type='button' className='nav'><MdKeyboardArrowRight /></button> */}
                         </div>
                     ))}
