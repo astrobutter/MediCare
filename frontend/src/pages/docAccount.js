@@ -245,7 +245,7 @@ export const Account = () => {
                             <div className='pateint-img'><img src={appointment.imageUrl} /></div>
                             <div>{appointment.name}</div>
                             <div>{appointment.gender}</div>
-                            <div>{month[dayjs(appointment.date).format('MM')-'0']} {dayjs(appointment.date).format('DD')-'0'}, {dayjs(appointment.date).format('YYYY')}</div>
+                            <div>{month[dayjs(appointment.date).format('MM')-'0'-1]} {dayjs(appointment.date).format('DD')-'0'}, {dayjs(appointment.date).format('YYYY')}</div>
                             <div>{appointment.time>11? (appointment.time-12 +' p.m.'): (appointment.time +' a.m.')}</div>
                             <div>{month[dayjs(appointment.dateTag).format('MM')-'0']} {dayjs(appointment.dateTag).format('DD')-'0'}, {dayjs(appointment.dateTag).format('YYYY')}</div>
                             {/* <button type='button' className='nav'><MdKeyboardArrowRight /></button> */}

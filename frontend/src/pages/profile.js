@@ -53,9 +53,6 @@ export const Profile = () => {
   useEffect(() => {
     getUserName();
   }, [user])
-
-  useEffect(()=>{
-  }, ['appointment -', appointment])
   useEffect(()=>{
     updateSchedules();
   }, [profileDoc])
@@ -141,7 +138,7 @@ export const Profile = () => {
           ))} */}
           { profileDoc.schedules?.map((schedule,index)=>(
             <div className='schedule-wrap'>
-              <div className='schedule-date' key={index}>{dayjs(schedule.date).format('DD')-'0' -1} / {dayjs(schedule.date).format('MM')} / {dayjs(schedule.date).format('YYYY')}</div>
+              <div className='schedule-date' key={index}>{dayjs(schedule.date).format('DD')-'0'} / {dayjs(schedule.date).format('MM')} / {dayjs(schedule.date).format('YYYY')}</div>
               <div className='schedule-timings'>
               {schedule.timings?.map((timing,index2)=>(
                 <div className='schedule-time' key={index2} onClick={event => handleAppointment( event, schedule.date, timing.time, index, index2)}>

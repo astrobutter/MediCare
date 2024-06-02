@@ -46,7 +46,9 @@
     align-items: center;
     gap: 3rem;
     transition: all 0.3s ease-in-out;
-    /* z-index: -9; */
+}
+.header-section .booking-container p{
+    font-size: 1.3rem !important;
 }
 .header-section .booking-container:hover{
     border: 2px solid var(--blue);

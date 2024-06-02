@@ -26,30 +26,19 @@ const AppointmentModal = ({ open, onClose, appointment, setProfileDoc, profileDo
   const handleYes = async (event) => {
     try {
       event.stopPropagation();
-      // console.log('MODAL -', appointment);
       if( userID ){
-        // const response = await axios.put(`http://localhost:3001/doc/appointment`, { ...appointment }, { headers: { authorization: cookies.access_token } });
-        // console.log("RESPONSE -", response);
-        // toast.success('Appointment Booked.', { position: "bottom-left", autoClose: 1500, hideProgressBar: true, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "dark"});
-        // if( response.data ){
           profileDoc.schedules?.map( (schedule, index) => {
-            // console.log(schedule.date, appointment.date);
             if( schedule.date === appointment.date ){
-              // console.log('Comp -', schedule.date, appointment.date);
               schedule.timings.map( (timing, index2) => {
                 if( timing.time===appointment.time){
-                  // console.log('Comp time-', timing.time, appointment.time);
                   let schedules = profileDoc.schedules;
                   let slots= schedules[index].timings[index2].slots-'0';
                   slots-=1;
                   schedules[index].timings[index2].slots= slots;
                   setProfileDoc({ ...profileDoc, schedules});
                 }})
-            }}
-          )
-        // }
-        makePayment(event);
-      }
+          }})
+        makePayment(event);}
     } catch (error) { console.log(error) }
   }
   const handleNo = (event) => { event.stopPropagation(); onClose(); }
@@ -64,7 +53,7 @@ const AppointmentModal = ({ open, onClose, appointment, setProfileDoc, profileDo
       <div className='modalContainer' onClick={(e) => { e.stopPropagation(); }}>
         <p className='closeBtn' onClick={onClose}><IoMdClose /></p>
         <div className='modal-wrapper'>
-          <div className='modal-header'>Make an appointment for "{speciality}" on {month[dayjs(appointment.date).format('MM')-'0']} {dayjs(appointment.date).format('DD')-'0' -1}, {appointment.time>11? (appointment.time-12 +' p.m.'): (appointment.time +' a.m.')}?</div>
+          <div className='modal-header'>Make an appointment for "{speciality}" on {month[dayjs(appointment.date).format('MM')-'0'-1]} {dayjs(appointment.date).format('DD')-'0'}, {appointment.time>11? (appointment.time-12 +' p.m.'): (appointment.time +' a.m.')}?</div>
           <div className='modal-buttons'>
             <button className='modal-yes' onClick={event => handleYes(event)}>Yes</button>
             <button className='modal-no' onClick={event => handleNo(event)}>No</button>

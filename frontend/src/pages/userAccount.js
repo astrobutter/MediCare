@@ -78,7 +78,7 @@ export const UserAccount = () => {
                         <div key={index} className='row'>
                             <button className='username' onClick={event => handleProfileNav(event, appointment.doc)}>{appointment?.doc}</button>
                             {/* <div className='username'>{appointment?.name}</div> */}
-                            <div>{month[dayjs(appointment?.date).format('MM')-'0']} {dayjs(appointment?.date).format('DD')-'0'}, {dayjs(appointment?.date).format('YYYY')}</div>
+                            <div>{month[dayjs(appointment?.date).format('MM')-'0'-1]} {dayjs(appointment?.date).format('DD')-'0'}, {dayjs(appointment?.date).format('YYYY')}</div>
                             <div>{appointment?.time>11? (appointment?.time-12 +' p.m.'): (appointment?.time +' a.m.')}</div>
                             {/* <button type='button' className='nav' onClick={event => handleAppointmentNav(event, appointment?._id)}><MdKeyboardArrowRight /></button> */}
                         </div>

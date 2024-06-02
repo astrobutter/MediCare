@@ -101,9 +101,11 @@ export const Doc_sign_up = () => {
         return;
       }
       const result = await axios.post("http://localhost:3001/auth/doc/register", { user });
+      console.log('result-', result);
       if (result.status === 299) {
         toast.error('Username already exists.', { position: "bottom-left", autoClose: 1500, hideProgressBar: true, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "dark", });
-      } else {
+      }
+      else {
         setTimeout(() => { navigate("/login"); }, "2800");
         toast.success('Successfully registered. Being redirected to login page in 3 sec.', { position: "bottom-left", autoClose: 1500, hideProgressBar: true, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "dark", });
       }
@@ -122,6 +124,7 @@ export const Doc_sign_up = () => {
             </TabList>
           </Box>
           <TabPanel value="1" className="tabPanel">
+            {/* <form onSubmit={handleSubmit} className='max-width signup-form'> */}
             <form onSubmit={handleSubmit} className='max-width signup-form'>
               <div className='column'>
                 <label htmlFor="name">Name:</label>
@@ -153,6 +156,7 @@ export const Doc_sign_up = () => {
                   <button name="imageUrl" type="submit" className="submit-image-button" onClick={submitImage}>Upload</button>
                 </div>
               </div>
+              {/* <button type="submit" className="save-button">Save</button> */}
             </form>
           </TabPanel>
           <TabPanel value="2" className="tabPanel">
@@ -190,6 +194,7 @@ export const Doc_sign_up = () => {
                 <label htmlFor="about">About:</label>
                 <textarea type="text" value={user.about} placeholder='5 years in medical.' required rows={'2'} onChange={(event) => setUser({ ...user, about: event.target.value })} />
               </div>
+              {/* <button type="submit" className="save-button">Save</button> */}
             </form>
           </TabPanel>
           <TabPanel value="3" className="tabPanel">

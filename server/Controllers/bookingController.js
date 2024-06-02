@@ -28,14 +28,17 @@ export const getCheckoutSession = async (req, res) => {
                     }
                 }, quantity: 1
             }]
-        })
-        const booking = new AppointmentModel({ doc:doctorId, user:userID, session:session.id, date:appointment.date, time:appointment.time, status: true, name:user.name, email: user.email, username: user.username, imageUrl:user.imageUrl, gender:user.gender, dob:user.dob });
+        });
+        const booking = new AppointmentModel({ doc:doctorId, user:userID, session:session.id, date:appointment.date, time:appointment.time, status: true, name:user.name, username: user.username, imageUrl:user.imageUrl, gender:user.gender, dob:user.dob });
+        try {
+            await booking.save();
+            res.status(200).json({ success:true, message:'sucessfully', session});
+          } catch (err) {
+            console.error(err);
+            res.status(500).json({ success:false, message:'failed'});
+          }
         // status is set true, bcz to subsequently track the paymentintent we need web hooks.
-        await booking.save();
-        // appointmentSchema.pre(/^find/,  function(next){
-        //     this.populate('users').populate({ path: 'doctors', select:'name' });
-        //     next();
-        // });
-        res.status(200).json({ success:true, message:'sucessfully', session});
+        // await booking.save();
+        // res.status(200).json({ success:true, message:'sucessfully', session});
     } catch (err) { res.status(500).json({ success:false, message:'failed'}); }
 }

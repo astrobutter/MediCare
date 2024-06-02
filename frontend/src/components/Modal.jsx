@@ -10,21 +10,11 @@ const now = moment().hour(0).minute(60);
 
 const Modal = ({ open, onClose }) => {
   const [cookies, _] = useCookies(["access_token"]);
-
   const { doc, setDoc} = UserAuth();
-  const [ schedules, setSchedules] = useState({
-    date: new Date(),
-    timings: [],
-  })
+  const [ schedules, setSchedules] = useState({ date: new Date(), timings: [],})
   const [ time, setTime] = useState(now);
   const [ slotCount, setSlotCount] = useState();
   const maxdate = new Date(Date.now() + 12096e5);
-  useEffect(()=>{
-    console.log('UE schedules-', schedules);
-  }, [schedules]);
-  // useEffect(()=>{
-  //   console.log('UE time', time);
-  // }, [time]);
 
   if (!open) return null;
 
@@ -33,25 +23,17 @@ const Modal = ({ open, onClose }) => {
       if((dayjs(schedule.date).format('DD')-'0') === event.getDate()){
         toast.error(`Similar Schedule exits for ${dayjs(schedule.date).format('DD-MM')}.`, { position: "bottom-left", autoClose: 1500, hideProgressBar: true, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "dark"});
       }
-    });
-    setSchedules({ ...schedules, ['date']:event}
-  )
+    }); setSchedules({ ...schedules, ['date']:event});
   };
+
   const timeChange = (event) => setTime(event);
   const addTimings = (event) => {
     if( schedules.timings ){
       const oldTiming = schedules.timings;
-      oldTiming.push({
-        time: time._d.getHours(),
-        slots: slotCount,
-      })
+      oldTiming.push({ time: time._d.getHours(), slots: slotCount });
       setSchedules({...schedules, ['timings']:oldTiming});
-    }
-    else{
-      const timings = [{
-        time: time._d.getHours(),
-        slots: slotCount,
-      }]
+    }else{
+      const timings = [{ time: time._d.getHours(), slots: slotCount }];
       setSchedules({...schedules, timings});
     }
   }
@@ -67,13 +49,10 @@ const Modal = ({ open, onClose }) => {
         setDoc({ ...doc, schedules })
       }
       const result = await axios.put("http://localhost:3001/doc", { ...doc }, { headers: { authorization: cookies.access_token }});
-      console.log('axios -',result);
       setSchedules({ ...schedules, timings:null,})
-      toast.success('Changes Saved.', { position: "bottom-left", autoClose: 1500, hideProgressBar: true, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "dark",
-      });
+      toast.success('Changes Saved.', { position: "bottom-left", autoClose: 1500, hideProgressBar: true, closeOnClick: true, pauseOnHover: true, draggable: true, progress: undefined, theme: "dark"});
       onClose();
     } catch (error) { console.error(error) }
-
   }
 
   return (

@@ -49,7 +49,7 @@ router.post("/doc/register", async (req, res) => {
   const { name, dob, gender, email, imageUrl, educations, experiences, about, username, password, specializations, schedules } = req.body.user;
   const user = await DoctorModel.findOne({ username });
   if (user) {
-    return res.status(400).json({ message: "Username already exists" });
+    return res.status(299).json({ message: "Username already exists" });
   }
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
