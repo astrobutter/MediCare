@@ -19,13 +19,16 @@ export const getCheckoutSession = async (req, res) => {
             cancel_url: "http://localhost:3000/payment-failed",
             customer_email: user.email,
             client_reference_id:doctorId,
+            shipping_address_collection: {
+                allowed_countries: ['IN'] // List of allowed countries for shipping, you can add more if needed
+            },
             line_items: [{
                 price_data: {
                     currency: 'inr',
                     unit_amount: doctor.price*100,
                     product_data:{
                         name: doctor.name, description: desc,  images: [doctor.imageUrl]
-                    }
+                    },
                 }, quantity: 1
             }]
         });
