@@ -13,9 +13,6 @@ export const Search = () => {
     const userID = useGetUserID();
     const [currentPage, setCurrentPage] = useState(1);
     const [ searchText, setSearchText] = useState("");
-
-    // useEffect(() => {
-    // }, [currentPage]);
   
     return (
       <motion.div className='page community-forum' initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x: '0%' }} exit={{ opacity: 0, x: '100%' }}>

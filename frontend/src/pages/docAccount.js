@@ -127,12 +127,8 @@ export const Account = () => {
     fetchCurrentDocAppointment();
   }, []);
   useEffect(() => {
-    // console.log('UE doc -', doc);
     updateSchedules();
   }, [doc]);
-  useEffect(() => {
-    console.log('UE docAppointment -', docAppointment);
-  }, [docAppointment]);
   useEffect(() => {
     setDoc({ ...doc, specializations: currSpeciality })
   }, [currSpeciality]);

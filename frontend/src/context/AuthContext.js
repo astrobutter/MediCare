@@ -91,10 +91,9 @@ export const AuthContextProvider = ({ children }) => {
   const search  = async (search) => {
     if (search){
       try {
-        const response = await axios.post(`http://localhost:3001/forum/search`, {search});
-        console.log('setSearchedForum :', response.data);
-        setSearchedForum(response.data);
+        const response = await axios.post(`http://localhost:3001/forum/search`, {search}); setSearchedForum(response.data);
         navigate("/forum/search");
+        console.log('setSearchedForum :', response.data);
       } catch (err) { console.log(err) }
     }
   }
