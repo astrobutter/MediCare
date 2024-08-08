@@ -26,7 +26,7 @@ export const Profile = () => {
     } catch (err) { console.log(err) }
   }
   const getUserName = () => {
-    if( isDoctor === 'true' ) {setUserReview(review => ({...review, user: setProfileDoc.username}))
+    if( isDoctor === 'true' ) {setUserReview(review => ({...review, user: profileDoc.username}))
     }else{ setUserReview(review => ({...review, user: user.username}))}
   }
   const fetchDocProfile = async (username) => {
@@ -47,19 +47,15 @@ export const Profile = () => {
   }
   const handleAppointment = (event, date, time, index, index2) => {
     event.stopPropagation();
-    setAppointment({ date: date, time: time, })
-    setOpenModal(true);
+    setAppointment({ date: date, time: time, }); setOpenModal(true);
   }
-  useEffect(() => {
-    getUserName();
-  }, [user])
+
   useEffect(()=>{
     updateSchedules();
   }, [profileDoc])
   useEffect(() => {
     fetchDocProfile(params.username);
     fetchComments();
-    updateSchedules();
   }, []);
 
   const handleSubmitReviews = async (event) => {
@@ -87,55 +83,6 @@ export const Profile = () => {
         <div className='profile-section'>
           <p className='section-tag'>Appointment Slots</p>
           <div className='section-content schedules-container'>
-          {/* { profileDoc.schedules?.map((schedule,index)=>(
-            ((dayjs(schedule.date).format('DD')-'0'-1>= today.getDate()) && dayjs(schedule.date).format('MM')-'0'>= today.getMonth()+1) 
-            && (
-              <div className='schedule-wrap'>
-                <div className='schedule-date' key={index}>{dayjs(schedule.date).format('DD')-'0' -1} / {dayjs(schedule.date).format('MM')} / {dayjs(schedule.date).format('YYYY')}</div>
-                <div className='schedule-timings'>
-                {schedule.timings?.map((timing,index2)=>(
-                  <div className='schedule-time' key={index2} onClick={event => handleAppointment( event, schedule.date, timing.time, index, index2)}>
-                    {timing.time>11? (timing.time-12 +'p.m.'): (timing.time +'a.m.')} - ({timing.slots})
-                  </div>
-                ))}
-                </div>
-              </div>
-            )
-          ))} */}
-          {/* { profileDoc.schedules?.map((schedule,index)=>(
-            ( (dayjs(schedule.date).format('MM')-'0'> today.getMonth()+1) ? (
-              // (dayjs(schedule.date).format('DD')-'0'-1>= today.getDate()) 
-              // && (
-                <div className='schedule-wrap'>
-                  <div className='schedule-date' key={index}>{dayjs(schedule.date).format('DD')-'0' -1} / {dayjs(schedule.date).format('MM')} / {dayjs(schedule.date).format('YYYY')}</div>
-                  <div className='schedule-timings'>
-                  {schedule.timings?.map((timing,index2)=>(
-                    <div className='schedule-time' key={index2} onClick={event => handleAppointment( event, schedule.date, timing.time, index, index2)}>
-                      {timing.time>11? (timing.time-12 +'p.m.'): (timing.time +'a.m.')} - ({timing.slots})
-                    </div>
-                  ))}
-                  </div>
-                </div>
-              // )
-            )
-            :
-            (
-              (dayjs(schedule.date).format('DD')-'0'-1>= today.getDate()) 
-              && (
-                <div className='schedule-wrap'>
-                  <div className='schedule-date' key={index}>{dayjs(schedule.date).format('DD')-'0' -1} / {dayjs(schedule.date).format('MM')} / {dayjs(schedule.date).format('YYYY')}</div>
-                  <div className='schedule-timings'>
-                  {schedule.timings?.map((timing,index2)=>(
-                    <div className='schedule-time' key={index2} onClick={event => handleAppointment( event, schedule.date, timing.time, index, index2)}>
-                      {timing.time>11? (timing.time-12 +'p.m.'): (timing.time +'a.m.')} - ({timing.slots})
-                    </div>
-                  ))}
-                  </div>
-                </div>
-              )
-            )
-            )
-          ))} */}
           { profileDoc.schedules?.map((schedule,index)=>(
             <div className='schedule-wrap'>
               <div className='schedule-date' key={index}>{dayjs(schedule.date).format('DD')-'0'} / {dayjs(schedule.date).format('MM')} / {dayjs(schedule.date).format('YYYY')}</div>

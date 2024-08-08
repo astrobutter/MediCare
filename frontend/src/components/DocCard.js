@@ -1,7 +1,7 @@
 import React from 'react';
-import { FaCheckToSlot, FaArrowRightLong } from './ReactIcons';
-import '../css/doc-card.css'
+import { FaArrowRightLong } from './ReactIcons';
 import { useNavigate } from "react-router-dom";
+import '../css/doc-card.css'
 
 export const DocCard = ({doc}) => {
   const Navigate = useNavigate();
@@ -10,7 +10,6 @@ export const DocCard = ({doc}) => {
       <img src={doc.imageUrl} />
       <div className='info-container'>
         <h2>Dr. {doc.name}</h2>
-        {/* <div className='review-wrapper'><FaCheckToSlot /><p>(0)</p></div> */}
         <div className='button-container'><button onClick={(event) => Navigate(`/doc/${doc.username}`)}><FaArrowRightLong /></button></div>
       </div>
     </div>

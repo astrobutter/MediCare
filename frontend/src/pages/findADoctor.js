@@ -26,7 +26,7 @@ export const Find_a_doctor = () => {
   const handleLastPage = () => { setCurrentPage(totalPages); };
 
   const fetchDoctors = async (page) => {
-    console.log("FD-", name);
+    // console.log("FD-", name);
     try {
       const response = await axios.get(`http://localhost:3001/doc/${speciality}?page=${page}`);
       const { doctor, totalPages } = response.data;
@@ -36,7 +36,7 @@ export const Find_a_doctor = () => {
   };
 
   useEffect(()=>{
-    console.log('UE name-', name);
+    // console.log('UE name-', name);
   },[name])
 
   return (
